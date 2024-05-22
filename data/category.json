@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Family"
+  },
+  {
+    "id": 2,
+    "name": "Business"
+  },
+  {
+    "id": 3,
+    "name": "Health"
+  },
+  {
+    "id": 4,
+    "name": "Productivity"
+  },
+  {
+    "id": 5,
+    "name": "Marketing"
+  },
+  {
+    "id": 6,
+    "name": "Relationships"
+  },
+  {
+    "id": 7,
+    "name": "Leadership"
+  },
+  {
+    "id": 8,
+    "name": "Technology"
+  },
+  {
+    "id": 9,
+    "name": "Writing"
+  },
+  {
+    "id": 10,
+    "name": "Art"
+  },
+  {
+    "id": 11,
+    "name": "Gaming"
+  },
+  {
+    "id": 12,
+    "name": "Economics"
+  },
+  {
+    "id": 13,
+    "name": "Education"
+  },
+  {
+    "id": 14,
+    "name": "Religion"
+  },
+  {
+    "id": 15,
+    "name": "Nature"
+  },
+  {
+    "id": 16,
+    "name": "Travel"
+  }
+]

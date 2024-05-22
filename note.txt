@@ -1,0 +1,9 @@
+npx sequelize-cli model:create --name User --attributes email:string,password:string,gender:string,birthdate:date,fullName:string,status:boolean
+
+npx sequelize-cli model:create --name Profile --attributes gender:string,birthdate:date,fullName:string,profilePict:text,nickName:string,username:string,UserId:integer
+
+npx sequelize-cli model:create --name Category --attributes name:string
+
+npx sequelize-cli model:create --name Post --attributes imgURL:text,content:text,ProfileId:integer,CategoryId:integer
+
+npx sequelize-cli model:create --name Interaction --attributes like:boolean,ProfileId:integer,PostId:integer
