@@ -26,6 +26,14 @@
 </head>
 
 <body class="flex items-center justify-center min-h-screen">
+    <% if (errors) { %>
+        <div style="border: 1px solid rgb(255, 0, 0); background-color: rgb(227, 142, 142)">
+          <% errors.forEach(msg => { %>
+            <p style="color: blue;"><%= msg %></p>
+          <% }) %>
+        </div>
+      <% } %>
+      
     <div class="bg-white p-11 rounded-lg shadow-lg w-full max-w-3xl flex" style="background-color: #ffffff;">
         <div class="w-1/2">
             <h1 class="text-4xl lorafonts">Vritta · Sign Up</h1>
