@@ -155,11 +155,12 @@ class Controller {
       let id = req.session.user
       const edit = await User.findByPk(id)
       const profile = await Profile.findOne({
+        include: Post,
         where: {
           UserId: id
         }
       })
-      // console.log(profile)
+      // console.log(profile.Posts)
 
       // console.log(edit, 'iniiii')
       res.render('userprofile1', { edit, profile })
