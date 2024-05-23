@@ -16,20 +16,37 @@ class Controller {
     }
   }
 
-  static registerForm(req, res) {
-    res.render('register1')
+  static async registerForm(req, res) {
+    try {
+      let {errors} = req.query
+      if (errors) {
+        errors = errors.split(",")
+      }
+      res.render('register1', {errors})
+    } catch (error) {
+      res.send(error)
+    }
   }
 
 
-  static handleRegister(req, res) {
-    // console.log(req.body)
-    let { fullName, gender, birthdate, email, password } = req.body
-    User.create({ fullName, gender, birthdate, email, password })
-      .then(newUser => {
-        res.redirect('/login')
-      })
-      .catch(err => res.send(err))
+  static async handleRegister(req, res) {
+    const { fullName, gender, birthdate, email, password } = req.body;
+    
+    try {
+      const newUser = await User.create({ fullName, gender, birthdate, email, password });
+      res.redirect('/login');
+    } catch (error) {
+      if (error.name === "SequelizeValidationError"){
+        
+        const msg = error.errors.map(el => el.message)
+        // res.send('hai')
+        res.redirect(`/register?errors=${msg}`)
+      } else {
+        res.send(error)
+      }
+    }
   }
+  
 
 
   static loginForm(req, res) {
@@ -103,23 +120,27 @@ class Controller {
   static async homePage(req, res) {
     try {
       // console.log(req.query)
-      let {search} = req.query 
+      let { search } = req.query
       let id = req.session.user
 
-      let option = {}
-      if(search){
+      let option = {
+        order: [['createdAt', 'DESC']],
+        include: [
+          {
+            model: Profile,
+          }
+        ]
+      }
+      if (search) {
         option.where = {
-          name: {
+          title: {
             [Op.iLike]: `%${search}%`
           }
         }
       }
-      option.order = [['date', 'DESC']]
       // console.log(req.params, '<<<<')
-      
-      let post = await Post.findAll({
-        include: Profile
-      })
+
+      let post = await Post.findAll(option)
 
 
       const user = await User.findByPk(id)
@@ -141,7 +162,7 @@ class Controller {
       // console.log(profile)
 
       // console.log(edit, 'iniiii')
-      res.render('userProfile', { edit, profile })
+      res.render('userprofile1', { edit, profile })
     } catch (error) {
       res.send(error)
     }
@@ -226,17 +247,17 @@ class Controller {
       })
       // console.log(post.Profile)
       if (!post) {
-        throw new Error ('Post not found')
-    }
-    const likeCount = await Interaction.findOne({
-      where: {
+        throw new Error('Post not found')
+      }
+      const likeCount = await Interaction.findOne({
+        where: {
           PostId: postId,
           like: true,
-      },
-      attributes: [[fn('COUNT', col('id')), 'likeCount']],
-      raw: true,
-  })
-  // console.log(likeCount)
+        },
+        attributes: [[fn('COUNT', col('id')), 'likeCount']],
+        raw: true,
+      })
+      // console.log(likeCount)
 
       res.render('postdetail', { post, likeCount })
     } catch (error) {
@@ -301,11 +322,9 @@ class Controller {
       })
 
       if (interaction) {
-        // If interaction exists, toggle the like status
         interaction.like = !interaction.like;
         await interaction.save();
       } else {
-        // If no interaction exists, create a new one
         interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
       }
 
