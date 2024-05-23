@@ -120,7 +120,7 @@
         .author-avatar {
             width: 40px;
             height: 40px;
-            background-color: #ccc;
+            /* background-color: #ccc; */
             border-radius: 50%;
             margin-right: 16px;
         }
@@ -338,7 +338,9 @@
 <body>
     <header class="header">
         <div class="container header-container">
-            <div class="logo">Medium</div>
+            <a href="/home">
+                <div class="logo">Medium</div>
+            </a>
             <div class="header-actions">
                 <input type="text" placeholder="Search" class="search-input">
                 <button class="write-button">Write</button>
@@ -351,17 +353,14 @@
         <main class="content">
             <!-- Article -->
             <article class="article">
-                <h1 class="article-title">Long-form video representation learning (Part 3: Long-form egocentric video
-                    representation learning)</h1>
-                <p class="article-intro">We explore novel video representation learning methods that are equipped with
-                    long-form reasoning capability. This is Part III providing a sneak peek into our latest and greatest
-                    explorations for “long-form” egocentric video representation learning. See Part I on video as a
-                    graph and is Part II on sparse video-text transformers.</p>
+                <h1 class="article-title"><%= post.title %></h1>
+                <!-- <p class="article-intro"></p> -->
                 <div class="author-info">
-                    <div class="author-avatar"></div>
+                    <!-- <div class="author-avatar"></div> -->
+                    <img src="<%= post.Profile.profilePict %>" class="author-avatar" srcset="">
                     <div>
-                        <p class="author-name">Subarna Tripathi</p>
-                        <p class="publication-info">Published in Towards Data Science · 8 min read · May 15, 2024</p>
+                        <p class="author-name"><%= post.Profile.fullName %></p>
+                        <p class="publication-info">Published in Towards Data Science · 8 min read · <%= post.createdAt %></p>
                     </div>
                 </div>
                 <div class="article-actions">
@@ -390,33 +389,20 @@
                         <span>Share</span>
                     </div>
                 </div>
-                <p class="article-paragraph lorafonts">The first two blogs in this series described how different
-                    architectural
-                    motifs ranging from graph neural networks to sparse transformers addressed the challenges of
-                    “long-form” video representation learning. We showed how explicit graph-based methods can aggregate
-                    5-10X larger temporal context, but they were two-stage methods. Next, we explored how we can make
-                    memory and compute efficient end-to-end learnable models based on transformers and aggregate over 2X
-                    larger temporal context.</p>
-                <p class="article-paragraph lorafonts">In this blog, I’ll take you to our latest and greatest
-                    explorations,
-                    especially for long-form egocentric video representation learning methods. We have shown that
-                    egocentric video data, which is captured from a first-person perspective, can be effectively used to
-                    understand complex activities, interactions, and environments. This blog post will dive into the
-                    specifics of our new model architecture and training methodology, as well as provide experimental
-                    results demonstrating the effectiveness of our approach.</p>
+                <p class="article-paragraph lorafonts"><%- post.content %></p>
             </article>
             <!-- Author Section -->
             <section class="author-section">
                 <div class="author-profile">
                     <div class="author-avatar"></div>
                     <div>
-                        <h3>Written by Subarna Tripathi</h3>
+                        <h3>Written by <%= post.Profile.fullName %></h3>
                         <p>Writer for Towards Data Science<br>AI/ML research @ Intel Labs; Mom; Musician
                         </p>
                         <button class="follow-button">View Profile</button>
                     </div>
                 </div>
-                <h3>More from Subarna Tripathi and Towards Data Science</h3>
+                <h3>More from <%= post.Profile.fullName %> and Towards Data Science</h3>
                 <div class="articles-grid">
                     <!-- Example article cards -->
                     <div class="article-card">

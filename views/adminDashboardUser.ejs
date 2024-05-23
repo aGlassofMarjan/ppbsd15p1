@@ -17,6 +17,7 @@
         <th>username</th>
         <th>email</th>
         <th>fullname</th>
+        <th>Status</th>
         <th>action</th>
       </tr>
     </thead>
@@ -26,7 +27,8 @@
         <td>nanti create dulu</td>
         <td><%= el.email %></td>
         <td><%= el.fullName %></td>
-        <td> <button>Suspend</button></td>
+        <td><%= el.showStatus() %></td>
+        <td><a href="/admin/suspend/<%= el.id %>"><button>Suspend</button></td></a> 
        </tr>
       <% }) %>
     </tbody>

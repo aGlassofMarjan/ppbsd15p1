@@ -163,8 +163,8 @@
                 <button class="category-button">Productivity</button>
             </div> -->
             
-            <a href="/post/<%= post[0].dataValues.id %>/detail">
-                <% post.forEach(el => { %>
+            <% post.forEach(el => { %>
+                <a href="/post/<%= el.id %>/detail">
                     <%=//JSON.stringify(el.Profile?.profilePict) %>
                     <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
                         <div>

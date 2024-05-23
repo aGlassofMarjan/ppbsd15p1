@@ -19,7 +19,7 @@ class Controller {
 
 
   static handleRegister(req, res) {
-    console.log(req.body)
+    // console.log(req.body)
     let { fullName, gender, birthdate, email, password } = req.body
     User.create({ fullName, gender, birthdate, email, password })
       .then(newUser => {
@@ -57,18 +57,22 @@ class Controller {
       .catch(err => res.send(err))
   }
 
-static logout(req, res) {
-  req.session.destroy((err) => {
-    if (err) console.log(err)
-    else {
-      res.redirect('/login')
-    }
-  })
-}
+  static logout(req, res) {
+    req.session.destroy((err) => {
+      if (err) console.log(err)
+      else {
+        res.redirect('/login')
+      }
+    })
+  }
 
   static async adminDashboardUser(req, res) {
     try {
-      const user = await User.findAll()
+      const user = await User.findAll({
+        where: {
+          isAdmin: false
+        }
+      })
 
       res.render('adminDashboardUser', { user })
     } catch (error) {
@@ -86,22 +90,22 @@ static logout(req, res) {
     }
   }
 
-static async homePage(req, res){
-  try { 
-    let id = req.session.user
-    let post = await Post.findAll({
-      include: Profile
-    })
-    console.log(post)
-    // console.log(post[0].dataValues.Profiles)
-    const user = await User.findByPk(id)
-    // console.log(user)
-    // console.log(user, 'ini user')
-    res.render('timeline1', {user, post}) 
-  } catch (error) {
-    res.send(error)
+  static async homePage(req, res) {
+    try {
+      let id = req.session.user
+      let post = await Post.findAll({
+        include: Profile
+      })
+      // console.log(post)
+      // console.log(post[0].dataValues.Profiles)
+      const user = await User.findByPk(id)
+      // console.log(user)
+      // console.log(user, 'ini user')
+      res.render('timeline1', { user, post })
+    } catch (error) {
+      res.send(error)
+    }
   }
-}
 
   static async userProfile(req, res) {
     try {
@@ -133,48 +137,99 @@ static async homePage(req, res){
     }
   }
 
-static async handleSetup(req, res){
-  try {
-    let UserId = req.session.user
-    let {fullName, nickName, username, birthdate, gender, profilePict} = req.body
+  static async handleSetup(req, res) {
+    try {
+      let UserId = req.session.user
+      let { fullName, nickName, username, birthdate, gender, profilePict } = req.body
 
-    await Profile.create({fullName, nickName, username, birthdate, gender, profilePict, UserId})
-    res.redirect(`/user/${UserId}/profile`)
-    
-  } catch (error) {
-    res.send(error)
+      await Profile.create({ fullName, nickName, username, birthdate, gender, profilePict, UserId })
+      res.redirect(`/user/${UserId}/profile`)
+
+    } catch (error) {
+      res.send(error)
+    }
   }
-}
 
-static async postContent(req, res){
-  try {
-    let id = req.session.user
-    // console.log(id, '<<<<<<<<')
-    let profile = await Profile.findOne({
-      where: {
-        UserId: id
+  static async postContent(req, res) {
+    try {
+      let id = req.session.user
+      // console.log(id, '<<<<<<<<')
+      let profile = await Profile.findOne({
+        where: {
+          UserId: id
+        }
+      })
+      // console.log(profile, '<<<<<')
+      res.render('posthandler', { profile })
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handlePost(req, res) {
+    try {
+      let ProfileId = req.params.profileId
+      let { title, imgURL, content } = req.body
+
+      await Post.create({ title, imgURL, content, ProfileId })
+      res.redirect('/home')
+      // console.log(req.params)
+      // console.log(req.body)
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async postDetail(req, res) {
+    try {
+      let { postId } = req.params
+      let id = req.session.user
+      // console.log(req.params)
+      const post = await Post.findOne({
+        where: {
+          id: postId
+        },
+        include: {
+          model: Profile,
+          where: {
+            UserId: id
+          }
+        }
+      })
+      // console.log(post.Profile)
+
+      res.render('postdetail', { post })
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async suspend(req, res) {
+    try {
+      let { userId } = req.params
+
+      const user = await User.findOne({
+        where: {
+          id: userId
+        }
+      })
+
+      if (user) {
+        await User.update(
+          { status: false },
+          {
+            where: {
+              id: user.id
+            }
+          }
+        );
       }
-    })
-    // console.log(profile, '<<<<<')
-    res.render('posthandler', {profile})
-  } catch (error) {
-    res.send(error)
+      res.redirect('/admin/user')
+      // console.log(req.params)
+    } catch (error) {
+      res.send(error)
+    }
   }
-}
-
-static async handlePost(req, res){
-  try {
-    let ProfileId = req.params.profileId
-    let {title, imgURL, content} = req.body
-
-    await Post.create({title, imgURL, content, ProfileId})
-    res.redirect('/home')
-    // console.log(req.params)
-    // console.log(req.body)
-  } catch (error) {
-    res.send(error)
-  }
-}
 
 }
 module.exports = Controller

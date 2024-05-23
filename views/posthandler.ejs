@@ -137,14 +137,14 @@
         <div style="display: flex; margin-right: 40vh;">
             <p></p>
             <!-- <div class="logo">M</div> -->
-            <p class="lorafonts">Write as Yobel Sahala</p>
+            <p class="lorafonts">Write as <%= profile.fullName %></p>
         </div>
         <div style="display: flex; margin-left: 40vh;">
-        <form action="/post/<%= profile.id %>" method="post">
-            <input type="submit" name="" id="" value="Publish" class="publish" >
             <a href="/home">
                 <button class="backBtn">Back</button>
             </a>
+        <form action="/post/<%= profile.id %>" method="post">
+            <input type="submit" name="" id="" value="Publish" class="publish" >
             <!-- <div class="icon"></div> -->
         </div>
         <!-- <div>

@@ -35,6 +35,7 @@ routers.post('/login',isNotLoggedIn, Controller.handleLogin)
 //admin only
 routers.get('/admin/user', isAdmin,  Controller.adminDashboardUser)
 routers.get('/admin/post', isAdmin, Controller.adminDashboardPost)
+routers.get('/admin/suspend/:userId', isAdmin, Controller.suspend)
 
 routers.use(isLoggedIn)
 // user only
@@ -43,7 +44,7 @@ routers.get('/user/:userId/profile/setup', Controller.profileSetup)
 routers.post('/user/:userId/profile/setup', Controller.handleSetup)
 routers.get('/post/:profileId', Controller.postContent)
 routers.post('/post/:profileId', Controller.handlePost)
-// routers.get('/post/:postId/detail')
+routers.get('/post/:postId/detail', Controller.postDetail)
 // routers.get('/post/:postId/edit')
 // routers.post('/post/:postId/edit')
 // routers.get('/post/:postId/like')

@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    showStatus(){
+      let stats
+      if (this.status === true){
+        stats = 'Active'
+      } else {
+        stats = 'Suspended'
+      }
+      // console.log(typeof this.votes)
+      return stats
+    }
+
     static associate(models) {
       // define association here
       this.hasOne(models.Profile)
