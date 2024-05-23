@@ -140,8 +140,11 @@
             <p class="lorafonts">Write as Yobel Sahala</p>
         </div>
         <div style="display: flex; margin-left: 40vh;">
-            <button class="publish">Publish</button>
-            <button class="backBtn">Back</button>
+        <form action="/post/<%= profile.id %>" method="post">
+            <input type="submit" name="" id="" value="Publish" class="publish" >
+            <a href="/home">
+                <button class="backBtn">Back</button>
+            </a>
             <!-- <div class="icon"></div> -->
         </div>
         <!-- <div>
@@ -152,10 +155,11 @@
     </div>
     <div class="editor-container">
 
-        <input type="text" class="editor-title" placeholder="Title">
-        <input type="text" name="imageUrl" class="editor-image" placeholder="Insert image url..">
-        <textarea class="editor-story" placeholder="Tell your story..."></textarea>
+        <input type="text" class="editor-title" placeholder="Title" name="title">
+        <input type="text" class="editor-image" placeholder="Insert image url.." name="imgURL">
+        <textarea class="editor-story" placeholder="Tell your story..." name="content"></textarea>
     </div>
+        </form>
     <!-- <section class="">
         <div>
             <textarea name="text"></textarea>

@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Interaction)
+      this.belongsTo(models.Profile)
       this.belongsToMany(models.Profile, {
         through: models.Interaction
       })
@@ -21,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     imgURL: DataTypes.TEXT,
     content: DataTypes.TEXT,
     ProfileId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER
+    CategoryId: DataTypes.INTEGER,
+    title: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',
