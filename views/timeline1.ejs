@@ -134,7 +134,9 @@
                 <a href="/home">
                     <div class="text-xl font-bold">Medium</div>
                 </a>
-                <input type="text" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;">
+                <form action="/home" method="get">
+                    <input type="search" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;" name="search">
+                </form>
             </div>
             <div class="flex items-center space-x-4">
                 <% if (user) { %>

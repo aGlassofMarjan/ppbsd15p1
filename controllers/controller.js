@@ -2,6 +2,8 @@ const { User, Profile, Category, Post, Interaction } = require('../models')
 const reversedDate = require('../helpers/formatDate')
 const bcrypt = require('bcryptjs')
 const { fn, col } = require('sequelize')
+const { Op } = require('sequelize')
+
 
 class Controller {
 
@@ -100,16 +102,27 @@ class Controller {
 
   static async homePage(req, res) {
     try {
+      // console.log(req.query)
+      let {search} = req.query 
       let id = req.session.user
+
+      let option = {}
+      if(search){
+        option.where = {
+          name: {
+            [Op.iLike]: `%${search}%`
+          }
+        }
+      }
+      option.order = [['date', 'DESC']]
       // console.log(req.params, '<<<<')
+      
       let post = await Post.findAll({
         include: Profile
       })
-      // console.log(post)
-      // console.log(post[0].dataValues.Profiles)
+
+
       const user = await User.findByPk(id)
-      // console.log(user)
-      // console.log(user, 'ini user')
       res.render('timeline1', { user, post })
     } catch (error) {
       res.send(error)
