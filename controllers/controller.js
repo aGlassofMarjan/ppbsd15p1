@@ -1,6 +1,9 @@
 const { User, Profile, Category, Post, Interaction } = require('../models')
 const reversedDate = require('../helpers/formatDate')
 const bcrypt = require('bcryptjs')
+const { fn, col } = require('sequelize')
+const { Op } = require('sequelize')
+
 
 class Controller {
 
@@ -39,11 +42,18 @@ class Controller {
     User.findOne({ where: { email } })
       .then(user => {
         if (user) {
+
           const isValidPass = bcrypt.compareSync(password, user.password)
 
           if (isValidPass) {
+            // if (user.status === false) {
+            //   return res.redirect('/suspended');
+            // }
             req.session.user = user.id
             req.session.isAdmin = user.isAdmin
+            req.session.status = user.status
+            // req.session.status = user.status
+
             return res.redirect(user.isAdmin ? '/admin/user' : '/home')
           } else {
             const error = `invalid username/password`
@@ -92,15 +102,27 @@ class Controller {
 
   static async homePage(req, res) {
     try {
+      // console.log(req.query)
+      let {search} = req.query 
       let id = req.session.user
+
+      let option = {}
+      if(search){
+        option.where = {
+          name: {
+            [Op.iLike]: `%${search}%`
+          }
+        }
+      }
+      option.order = [['date', 'DESC']]
+      // console.log(req.params, '<<<<')
+      
       let post = await Post.findAll({
         include: Profile
       })
-      // console.log(post)
-      // console.log(post[0].dataValues.Profiles)
+
+
       const user = await User.findByPk(id)
-      // console.log(user)
-      // console.log(user, 'ini user')
       res.render('timeline1', { user, post })
     } catch (error) {
       res.send(error)
@@ -152,15 +174,19 @@ class Controller {
 
   static async postContent(req, res) {
     try {
-      let id = req.session.user
-      // console.log(id, '<<<<<<<<')
-      let profile = await Profile.findOne({
-        where: {
-          UserId: id
-        }
-      })
-      // console.log(profile, '<<<<<')
-      res.render('posthandler', { profile })
+      if (req.session.status === false) {
+        res.redirect('/suspended')
+      } else {
+        let id = req.session.user
+        // console.log(id, '<<<<<<<<')
+        let profile = await Profile.findOne({
+          where: {
+            UserId: id
+          }
+        })
+        // console.log(profile, '<<<<<')
+        res.render('posthandler', { profile })
+      }
     } catch (error) {
       res.send(error)
     }
@@ -182,7 +208,9 @@ class Controller {
 
   static async postDetail(req, res) {
     try {
+      // console.log(req.params, 'iniiiiii')
       let { postId } = req.params
+
       let id = req.session.user
       // console.log(req.params)
       const post = await Post.findOne({
@@ -191,14 +219,26 @@ class Controller {
         },
         include: {
           model: Profile,
-          where: {
-            UserId: id
-          }
+          // where: {
+          //   UserId: id
+          // }
         }
       })
       // console.log(post.Profile)
+      if (!post) {
+        throw new Error ('Post not found')
+    }
+    const likeCount = await Interaction.findOne({
+      where: {
+          PostId: postId,
+          like: true,
+      },
+      attributes: [[fn('COUNT', col('id')), 'likeCount']],
+      raw: true,
+  })
+  // console.log(likeCount)
 
-      res.render('postdetail', { post })
+      res.render('postdetail', { post, likeCount })
     } catch (error) {
       res.send(error)
     }
@@ -226,6 +266,51 @@ class Controller {
       }
       res.redirect('/admin/user')
       // console.log(req.params)
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handleSuspend(req, res) {
+    try {
+      res.render('410error')
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handleLike(req, res) {
+    try {
+      // console.log(req.params)
+      const { PostId } = req.params
+      const post = await Post.findOne({ where: { id: PostId } })
+
+      if (!post) {
+        throw new Error('Post not found')
+      }
+
+      // Retrieve the associated profile of the post
+      const profile = await Profile.findOne({ where: { id: post.ProfileId } });
+
+      if (!profile) {
+        throw new Error('Profile not found')
+      }
+
+      let interaction = await Interaction.findOne({
+        where: { ProfileId: profile.id, PostId: post.id },
+      })
+
+      if (interaction) {
+        // If interaction exists, toggle the like status
+        interaction.like = !interaction.like;
+        await interaction.save();
+      } else {
+        // If no interaction exists, create a new one
+        interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
+      }
+
+      res.redirect(`/post/${PostId}/detail`)
+
     } catch (error) {
       res.send(error)
     }

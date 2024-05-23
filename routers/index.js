@@ -39,6 +39,7 @@ routers.get('/admin/suspend/:userId', isAdmin, Controller.suspend)
 
 routers.use(isLoggedIn)
 // user only
+routers.get('/suspended', Controller.handleSuspend)
 routers.get('/user/:userId/profile', Controller.userProfile)
 routers.get('/user/:userId/profile/setup', Controller.profileSetup)
 routers.post('/user/:userId/profile/setup', Controller.handleSetup)
@@ -47,7 +48,7 @@ routers.post('/post/:profileId', Controller.handlePost)
 routers.get('/post/:postId/detail', Controller.postDetail)
 // routers.get('/post/:postId/edit')
 // routers.post('/post/:postId/edit')
-// routers.get('/post/:postId/like')
+routers.get('/like/:PostId', Controller.handleLike)
 routers.get('/logout', Controller.logout)
 
 

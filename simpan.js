@@ -1,131 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medium-style Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
-
-        .lorafonts {
-            font-family: "Lora", serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-        }
-
-        .category-button {
-            flex-shrink: 0;
-            padding: 8px 16px;
-            border-radius: 9999px;
-            background-color: #f0f0f0;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-
-        header {
-            background-color: #fff;
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        input[type="text"] {
-            border: 1px solid #ccc;
-            padding: 8px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        button.bg-black {
-            background-color: #000;
-        }
-
-        button.bg-blue-500 {
-            background-color: #007bff;
-        }
-
-        main .bg-white {
-            background-color: #fff;
-            padding: 16px;
-            /* border-radius: 8px; */
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-            margin-bottom: 16px;
-        }
-
-        main h2 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        main p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        aside .sticky {
-            position: sticky;
-            top: 20px;
-        }
-
-        aside h2 {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-
-        aside ul li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        aside ul li div {
-            font-size: 14px;
-        }
-
-        aside ul li p {
-            font-size: 12px;
-            color: #555;
-        }
-
-        aside .flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        aside .flex button {
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 9999px;
-            background-color: #f0f0f0;
-        }
-
-        aside .space-y-4 li {
-            margin-bottom: 16px;
-        }
-
-        aside .space-y-4 button {
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 9999px;
-        }
-    </style>
-</head>
 
 <body class="">
     <header class="bg-white" style="border-bottom: solid 1px #d3d3d3;">
@@ -134,57 +6,69 @@
                 <a href="/home">
                     <div class="text-xl font-bold">Medium</div>
                 </a>
-                <form action="/home" method="get">
-                    <input type="search" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;" name="search">
-                </form>
+                <input type="text" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;">
+
             </div>
+           
             <div class="flex items-center space-x-4">
-                <% if (user) { %>
-                    <a href="/post/<%= post[0].dataValues.Profile.id %>">
-                        <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
-                            style="border: solid 1px black;">Write</button>
-                    </a>
+                <a href="/post/<%= post[0].dataValues.Profile.id %>">
+                <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
+                    style="border: solid 1px black;">Write</button>
+                </a>
                     <a href="/user/<%= user.id %>/profile">
                         <div class="w-8 h-8 rounded-full bg-gray-400"></div>
                     </a>
-                <% } else { %>
-                    <a href="/login">
-                        <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
-                            style="border: solid 1px black;">Sign In</button>
-                    </a>
-                <% } %>
             </div>
         </div>
     </header>
     <div class="container mx-auto flex mt-4">
         <main class="w-2/3 p-4" style="border-right: solid 1px #d3d3d3;">
+            <!-- slider category -- optional -->
+            <!-- <div class="flex overflow-x-auto space-x-2 mb-4 py-2">
+                <button class="category-button">For you</button>
+                <button class="category-button">Following</button>
+                <button class="category-button">Cryptocurrency</button>
+                <button class="category-button">Machine Learning</button>
+                <button class="category-button">Apple</button>
+                <button class="category-button">Android</button>
+                <button class="category-button">Photography</button>
+                <button class="category-button">Productivity</button>
+            </div> -->
+            
             <% post.forEach(el => { %>
                 <a href="/post/<%= el.id %>/detail">
+                    <%=//JSON.stringify(el.Profile?.profilePict) %>
                     <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
                         <div>
                             <div class="flex align-center">
                                 <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
-                                    <img src="<%= el.Profile.profilePict %>" alt="" class="rounded-full">
+                                    <img src="<%=el.Profile.profilePict%>"
+                                        alt="" class="rounded-full">
                                 </div>
                                 <p class="text-gray-500 mb-2"><b><%= el.Profile.fullName %></b> · <%= el.createdAt %> · 6 min read</p>
                             </div>
                             <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.title %></h2>
-                            <p class="lorafonts"><%- el.content %></p>
+                            <p class="lorafonts"><%- el.content %>
+                            </p>
                             <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button>
                         </div>
                         <div class="ml-10">
-                            <img style="object-fit: cover;" class="w-60 h-40" src="<%= el.imgURL %>"></img>
+                            <img style="object-fit: cover;" class="w-60 h-40"
+                                src="<%= el.imgURL %>">
+                            </img>
                         </div>
                     </div>
-                </a>
-            <% }) %>
+                <% }) %>
+            </a>
         </main>
+
         <aside class="w-1/3 p-4">
             <div class="sticky top-0">
                 <h2 class="font-semibold mb-4">Your Latest Release</h2>
                 <ul class="space-y-2">
                     <li class="flex items-center">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg" alt="" class="w-10 h-10 rounded-full mr-3">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
+                            alt="" class="w-10 h-10 rounded-full mr-3">
                         <div>
                             <h3 class="font-semibold text-sm">It happened on Medium: April 2024 roundup</h3>
                             <p class="text-gray-500 text-xs">Medium Staff in The Medium Blog</p>
@@ -222,7 +106,7 @@
                             <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
                             <div>
                                 <h3 class="font-semibold text-sm">Crypto Big Stories</h3>
-                                <p>I create unique cryptocurrency content, and share tips to help</p>
+                                <p>I create unique cryptocurrency content, and share tips to hel</p>
                             </div>
                         </div>
                         <button class="bg-blue-500 text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
@@ -255,5 +139,3 @@
         </aside>
     </div>
 </body>
-
-</html>
