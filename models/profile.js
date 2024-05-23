@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.User)
       this.hasMany(models.Interaction)
+      this.hasMany(models.Post)
       this.belongsToMany(models.Post,{
         through: models.Interaction
       })
