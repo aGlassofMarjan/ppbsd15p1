@@ -132,10 +132,11 @@
         <div class="container mx-auto flex justify-between items-center p-4">
             <div class="flex items-center space-x-4">
                 <a href="/home">
-                    <div class="text-xl font-bold">Medium</div>
+                    <div class="text-xl font-bold">Vritta</div>
                 </a>
                 <form action="/home" method="get">
-                    <input type="search" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;" name="search">
+                    <input type="search" placeholder="  Search" class="border rounded-full p-2"
+                        style="border-radius: 20px;" name="search">
                 </form>
             </div>
             <div class="flex items-center space-x-4">
@@ -147,18 +148,18 @@
                     <a href="/user/<%= user.id %>/profile">
                         <div class="w-8 h-8 rounded-full bg-gray-400"></div>
                     </a>
-                <% } else { %>
-                    <a href="/login">
-                        <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
-                            style="border: solid 1px black;">Sign In</button>
-                    </a>
-                <% } %>
+                    <% } else { %>
+                        <a href="/login">
+                            <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
+                                style="border: solid 1px black;">Sign In</button>
+                        </a>
+                        <% } %>
             </div>
         </div>
     </header>
     <div class="container mx-auto flex mt-4">
         <main class="w-2/3 p-4" style="border-right: solid 1px #d3d3d3;">
-            <% post.forEach(el => { %>
+            <% post.forEach(el=> { %>
                 <a href="/post/<%= el.id %>/detail">
                     <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
                         <div>
@@ -166,9 +167,13 @@
                                 <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
                                     <img src="<%= el.Profile.profilePict %>" alt="" class="rounded-full">
                                 </div>
-                                <p class="text-gray-500 mb-2"><b><%= el.Profile.fullName %></b> · <%= el.createdAt %> · 6 min read</p>
+                                <p class="text-gray-500 mb-2"><b>
+                                        <%= el.Profile.fullName %>
+                                    </b> · <%= el.createdAt %> · 6 min read</p>
                             </div>
-                            <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.title %></h2>
+                            <h2 class="text-xl font-bold mb-1 lorafonts">
+                                <%= el.title %>
+                            </h2>
                             <p class="lorafonts"><%- el.content %></p>
                             <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button>
                         </div>
@@ -177,14 +182,15 @@
                         </div>
                     </div>
                 </a>
-            <% }) %>
+                <% }) %>
         </main>
         <aside class="w-1/3 p-4">
             <div class="sticky top-0">
                 <h2 class="font-semibold mb-4">Your Latest Release</h2>
                 <ul class="space-y-2">
                     <li class="flex items-center">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg" alt="" class="w-10 h-10 rounded-full mr-3">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
+                            alt="" class="w-10 h-10 rounded-full mr-3">
                         <div>
                             <h3 class="font-semibold text-sm">It happened on Medium: April 2024 roundup</h3>
                             <p class="text-gray-500 text-xs">Medium Staff in The Medium Blog</p>
