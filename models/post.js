@@ -11,9 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Category)
-      this.belongsToMany(models.Interaction)
-      this.belongsTo(models.Profile)
+      this.hasMany(models.Interaction)
+      this.belongsToMany(models.Profile, {
+        through: models.Interaction
+      })
     }
   }
   Post.init({

@@ -1,0 +1,11 @@
+[
+{
+  "fullName": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "securepassword123",
+  "isAdmin": true,
+  "status": true,
+  "gender": "male",
+  "birthdate": "1980-01-01"
+}
+]

@@ -12,8 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.User)
-      this.belongsToMany(models.Interaction)
-      this.hasMany(models.Post)
+      this.hasMany(models.Interaction)
+      this.belongsToMany(models.Post,{
+        through: models.Interaction
+      })
+
 
     }
   }
