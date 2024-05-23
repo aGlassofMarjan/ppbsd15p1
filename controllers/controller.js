@@ -66,7 +66,6 @@ static logout(req, res) {
   })
 }
 
-
 static async adminDashboardUser(req, res){
   try {
     const user = await User.findAll()
@@ -90,10 +89,15 @@ static async adminDashboardPost(req, res){
 static async homePage(req, res){
   try { 
     let id = req.session.user
-    // console.log(req.session.user)
+    let post = await Post.findAll({
+      include: Profile
+    })
+    console.log(post)
+    // console.log(post[0].dataValues.Profiles)
     const user = await User.findByPk(id)
+    // console.log(user)
     // console.log(user, 'ini user')
-    res.render('timeline1', {user}) 
+    res.render('timeline1', {user, post}) 
   } catch (error) {
     res.send(error)
   }
@@ -132,12 +136,41 @@ static async profileSetup(req, res) {
 static async handleSetup(req, res){
   try {
     let UserId = req.session.user
-    console.log(req.body)
     let {fullName, nickName, username, birthdate, gender, profilePict} = req.body
 
     await Profile.create({fullName, nickName, username, birthdate, gender, profilePict, UserId})
     res.redirect(`/user/${UserId}/profile`)
     
+  } catch (error) {
+    res.send(error)
+  }
+}
+
+static async postContent(req, res){
+  try {
+    let id = req.session.user
+    // console.log(id, '<<<<<<<<')
+    let profile = await Profile.findOne({
+      where: {
+        UserId: id
+      }
+    })
+    // console.log(profile, '<<<<<')
+    res.render('posthandler', {profile})
+  } catch (error) {
+    res.send(error)
+  }
+}
+
+static async handlePost(req, res){
+  try {
+    let ProfileId = req.params.profileId
+    let {title, imgURL, content} = req.body
+
+    await Post.create({title, imgURL, content, ProfileId})
+    res.redirect('/home')
+    // console.log(req.params)
+    // console.log(req.body)
   } catch (error) {
     res.send(error)
   }
