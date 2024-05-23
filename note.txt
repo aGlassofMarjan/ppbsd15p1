@@ -26,26 +26,29 @@ get /home
 
 KHSUSUS USER
 -- setup profile user untuk pertamakali, untuk dapetin id Profile
-get /user/:id/profile/setup
-post /user/:id/profile/setup
+get /user/:userId/profile/setup
+post /user/:userId/profile/setup
+
+--edit user 
+get /user/:userId/profile/edit
+post /user/:userId/profile/edit
 
 -- untuk ke halaman profile tiap user
-get /user/:id/profile
+get /user/:userId/profile
 
 -- baca post lebih lanjut
-get /post/:ProfileId/detail
+get /post/:postId/detail
 
 -- edit post 
-get /post/:ProfileId/edit
-post /post/:ProfileId/edit
+get /post/:postId/edit
+post /post/:postId/edit
 
 -- like post 
-get /like/:PostId 
+get /post/:postId/like
 
 -- comment post 
-get /comment/:PostId
-
-
+get /post/:postId/comment
+post /post/:postId/comment
 
 
 

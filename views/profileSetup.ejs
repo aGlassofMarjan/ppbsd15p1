@@ -9,18 +9,18 @@
 
   <h1>Profle Setup</h1>
 
-  <form action="">
-
-<form action="/user/setupProfile">
-  Full Name <br> <input type="text" name="" id=""> <br>
-  Nick Name <br> <input type="text" name="" id=""> <br>
-  username <br> <input type="text" name="" id=""> <br> <!--ini bikin unique//hapus-->
-  Birth date <br> <input type="text" name="" id=""> <br>
-  Gender <br> <input type="text" name="" id=""> <br>
-  Profile Picture <br> <input type="text" name="" id=""> <br>
-
-
-</form>
+<form action="/user/<%= user.id %>/profile/setup" method="post">
+  Full Name <br> <input type="text" name="fullName" id="" value="<%= user.fullName %>"> <br>
+  Nick Name <br> <input type="text" name="nickName" id=""> <br>
+  username <br> <input type="text" name="username" id=""> <br> <!--ini bikin unique//hapus-->
+  Birth date <br> <input type="date" name="birthdate" id="" value="<%= reversedDate(user.birthdate) %>"> <br>
+  Gender <br> <select name="gender" id="">
+    <option value="Female" <% if(user.gender ==='Female' ) { %> selected <% } %>>Female</option>
+    <option value="Male"<% if(user.gender ==='Male' ) { %> selected <% } %>>Male</option>
+  </select>
+  <br>
+  Profile Picture <br> <input type="text" name="profilePict" id=""> <br>
+  <input type="submit" name="" id="Update Profile">
   </form>
   
 </body>
