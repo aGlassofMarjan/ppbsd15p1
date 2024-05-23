@@ -129,6 +129,11 @@
             background-color: #2c2c2c;
             color: #ffffff;
         }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+        }
     </style>
 </head>
 
@@ -137,15 +142,16 @@
         <div style="display: flex; margin-right: 40vh;">
             <p></p>
             <!-- <div class="logo">M</div> -->
-            <p class="lorafonts">Write as <%= profile.fullName %></p>
+            <p class="lorafonts">Write as <%= profile.fullName %>
+            </p>
         </div>
         <div style="display: flex; margin-left: 40vh;">
             <a href="/home">
                 <button class="backBtn">Back</button>
             </a>
-        <form action="/post/<%= profile.id %>" method="post">
-            <input type="submit" name="" id="" value="Publish" class="publish" >
-            <!-- <div class="icon"></div> -->
+            <form action="/post/<%= profile.id %>" method="post">
+                <input type="submit" name="" id="" value="Publish" class="publish">
+                <!-- <div class="icon"></div> -->
         </div>
         <!-- <div>
             <span class="icon">&#128065;</span> 
@@ -159,7 +165,7 @@
         <input type="text" class="editor-image" placeholder="Insert image url.." name="imgURL">
         <textarea class="editor-story" placeholder="Tell your story..." name="content"></textarea>
     </div>
-        </form>
+    </form>
     <!-- <section class="">
         <div>
             <textarea name="text"></textarea>
