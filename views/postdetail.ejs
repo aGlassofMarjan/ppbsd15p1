@@ -365,32 +365,19 @@
                 </div>
                 <div class="article-actions">
                     <div class="action">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
-                            </path>
-                        </svg>
-                        <span>121</span>
+                        <!-- tanda like -->
+                        <a href="/like/<%= post.id %>">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                                </path>
+                            </svg>
+                        </a>
+                            <span><%= likeCount.likeCount %></span>
+                        </div>
                     </div>
-                    <div class="action">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 7.09c-2.1 0-3.8 1.7-3.8 3.8 0 2.1 1.7 3.8 3.8 3.8 2.1 0 3.8-1.7 3.8-3.8 0-2.1-1.7-3.8-3.8-3.8zm0 5.97c-1.2 0-2.17-.97-2.17-2.17s.97-2.17 2.17-2.17 2.17.97 2.17 2.17-.97 2.17-2.17 2.17zm0-10.32c-5.48 0-9.93 4.45-9.93 9.93s4.45 9.93 9.93 9.93 9.93-4.45 9.93-9.93S17.48 2.74 12 2.74zm0 18.07c-4.46 0-8.13-3.67-8.13-8.13s3.67-8.13 8.13-8.13 8.13 3.67 8.13 8.13-3.67 8.13-8.13 8.13z">
-                            </path>
-                        </svg>
-                        <span>Comments</span>
-                    </div>
-                    <div class="action">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M17 7h-6V5h6m2-2H9v6h10M5 21h14V9H5m0-2H3v14h14v2H5c-1.11 0-2-.89-2-2V7h2m14 0h-6v6h6V7m-8 8h6v2h-6m-8 0h6v2H7m0-4h6v2H7V9m-2 0h2v6H5V9z">
-                            </path>
-                        </svg>
-                        <span>Share</span>
-                    </div>
-                </div>
-                <p class="article-paragraph lorafonts"><%- post.content %></p>
-            </article>
+                    <p class="article-paragraph lorafonts"><%- post.content %></p>
+                </article>
             <!-- Author Section -->
             <section class="author-section">
                 <div class="author-profile">

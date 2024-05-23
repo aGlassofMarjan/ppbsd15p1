@@ -24,6 +24,14 @@ const isAdmin = (req, res, next) => {
   }
 };
 
+// const isActive = (req, res, next) => {
+//   if (!req.session.isAdmin) {
+//     return res.redirect('/user/home');
+//   } else {
+//     next();
+//   }
+// };
+
 module.exports = {
   isLoggedIn,
   isNotLoggedIn,
