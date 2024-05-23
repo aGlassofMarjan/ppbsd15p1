@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Write · Vritta</title>
+    <script src="https://cdn.tiny.cloud/1/jvp239o8zqq5yvk2mdcie5btelfx1e0mxhibfkzow8zrefad/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+        .lorafonts {
+            font-family: "Lora", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background-color: #f5f5f5; */
+        }
+
+        .editor-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+        }
+
+        .main-content {
+            padding-top: 60px;
+            /* Adjust this value based on your header's height */
+        }
+
+        .header {
+            position: fixed;
+            padding: 2vh;
+            /* Fixed position */
+            top: 0;
+            /* Align to the top */
+            width: 100%;
+            /* Full width */
+            background: #fff;
+            /* Background color */
+            z-index: 1000;
+            /* Ensure it's above other elements */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .logo {
+            border-radius: 50%;
+            border: 1px solid black;
+            height: 30px;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .editor-title {
+            font-size: 2em;
+            border: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .editor-image {
+            font-size: 1.5em;
+            border: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .editor-story {
+            font-size: 1em;
+            border: none;
+            width: 100%;
+            height: 280px;
+        }
+
+        .icon {
+            width: 2rem;
+            /* Tailwind 'w-8' */
+            height: 2rem;
+            /* Tailwind 'h-8' */
+            border-radius: 9999px;
+            /* Tailwind 'rounded-full' */
+            background-color: #cbd5e0;
+            /* Tailwind 'bg-gray-400' */
+        }
+
+        .publish {
+            border-radius: 9999px;
+            border: solid 2px #1a8917;
+            padding: 10px 15px;
+            background-color: #1a8917;
+            color: #f5f5f5;
+        }
+
+        .publish:hover {
+            border: solid 2px #11610e;
+            background-color: #11610e;
+        }
+
+        .backBtn {
+            margin-left: 1vh;
+            border-radius: 9999px;
+            border: solid 2px #2c2c2c;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            color: #2c2c2c;
+        }
+
+        .backBtn:hover {
+            border: solid 2px #2c2c2c;
+            background-color: #2c2c2c;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header" style="border-bottom: solid 1px #d3d3d3;">
+        <div style="display: flex; margin-right: 40vh;">
+            <p></p>
+            <!-- <div class="logo">M</div> -->
+            <p class="lorafonts">Write as Yobel Sahala</p>
+        </div>
+        <div style="display: flex; margin-left: 40vh;">
+            <button class="publish">Publish</button>
+            <button class="backBtn">Back</button>
+            <!-- <div class="icon"></div> -->
+        </div>
+        <!-- <div>
+            <span class="icon">&#128065;</span> 
+            <span class="icon">&#x21bb;</span> 
+            <span class="icon">&#128276;</span> 
+        </div> -->
+    </div>
+    <div class="editor-container">
+
+        <input type="text" class="editor-title" placeholder="Title">
+        <input type="text" name="imageUrl" class="editor-image" placeholder="Insert image url..">
+        <textarea class="editor-story" placeholder="Tell your story..."></textarea>
+    </div>
+    <!-- <section class="">
+        <div>
+            <textarea name="text"></textarea>
+        </div>
+
+    </section> -->
+
+    <!-- script tinyMce -->
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+
+</body>
+
+</html>
