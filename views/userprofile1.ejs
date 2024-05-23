@@ -147,11 +147,13 @@
                 <!-- <input type="text" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;"> -->
          <% if (profile) { %>
             </div>
+            <a href="/post/<%= profile.id %>">
             <div class="flex items-center space-x-4">
                 <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
                     style="border: solid 1px black;">Write</button>
                 <div class="w-8 h-8 rounded-full bg-gray-400"></div>
             </div>
+        </a>
         </div>
     </header>
     <div class="container mx-auto flex mt-4">
@@ -173,7 +175,8 @@
                 <button class="category-button">Photography</button>
                 <button class="category-button">Productivity</button>
             </div> -->
-            <% profile.Posts.forEach(el => { %> 
+            <% profile.Posts.forEach(el => { %>  
+               
                 <a href="/post/<%= el.id %>/detail">
                 <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
                     <div>

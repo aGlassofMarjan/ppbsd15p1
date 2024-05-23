@@ -160,10 +160,15 @@ class Controller {
           UserId: id
         }
       })
+      console.log(profile.Posts.length)
+      if(profile){
+        res.render('userprofile1', { edit, profile })
+      }else {
+        res.redirect(`/user/${id}}/profile/setup`)
+      }
       // console.log(profile.Posts)
 
       // console.log(edit, 'iniiii')
-      res.render('userprofile1', { edit, profile })
     } catch (error) {
       res.send(error)
     }
@@ -175,7 +180,7 @@ class Controller {
       let id = req.session.user
       let user = await User.findByPk(id)
 
-      res.render('profileSetup', { user, reversedDate })
+      res.render('edituser', { user, reversedDate })
     } catch (error) {
       res.send(error)
     }
@@ -196,6 +201,12 @@ class Controller {
 
   static async postContent(req, res) {
     try {
+      let id = req.session.user
+      const profile = await Profile.findOne({
+        where: {
+          UserId: id
+        }
+      })
       if (req.session.status === false) {
         res.redirect('/suspended')
       } else {
@@ -207,8 +218,13 @@ class Controller {
           }
         })
         // console.log(profile, '<<<<<')
-        res.render('posthandler', { profile })
+        if(profile){
+          res.render('posthandler', { profile })
+        } else {
+        res.redirect(`/user/${id}/profile/setup`)
       }
+    }
+        
     } catch (error) {
       res.send(error)
     }
@@ -304,32 +320,41 @@ class Controller {
   static async handleLike(req, res) {
     try {
       // console.log(req.params)
+      let id = req.session.user
       const { PostId } = req.params
-      const post = await Post.findOne({ where: { id: PostId } })
-
-      if (!post) {
-        throw new Error('Post not found')
-      }
-
-      // Retrieve the associated profile of the post
-      const profile = await Profile.findOne({ where: { id: post.ProfileId } });
-
-      if (!profile) {
-        throw new Error('Profile not found')
-      }
-
-      let interaction = await Interaction.findOne({
-        where: { ProfileId: profile.id, PostId: post.id },
+      const isPorfile = await Profile.findOne({
+        where: {
+          UserId: id
+        }
       })
+      if(isPorfile){
 
-      if (interaction) {
-        interaction.like = !interaction.like;
-        await interaction.save();
-      } else {
-        interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
+        const post = await Post.findOne({ where: { id: PostId } })
+  
+        if (!post) {
+          throw new Error('Post not found')
+        }
+  
+        // Retrieve the associated profile of the post
+        const profile = await Profile.findOne({ where: { id: post.ProfileId } });
+  
+        if (!profile) {
+          throw new Error('Profile not found')
+        }
+  
+        let interaction = await Interaction.findOne({
+          where: { ProfileId: profile.id, PostId: post.id },
+        })
+  
+        if (interaction) {
+          interaction.like = !interaction.like;
+          await interaction.save();
+        } else {
+          interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
+        }
+  
+        res.redirect(`/post/${PostId}/detail`)
       }
-
-      res.redirect(`/post/${PostId}/detail`)
 
     } catch (error) {
       res.send(error)
