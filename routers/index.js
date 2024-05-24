@@ -43,13 +43,20 @@ routers.get('/suspended', Controller.handleSuspend)
 routers.get('/user/:userId/profile', Controller.userProfile)
 routers.get('/user/:userId/profile/setup', Controller.profileSetup)
 routers.post('/user/:userId/profile/setup', Controller.handleSetup)
+
+routers.get('/user/:userId/profile/edit', Controller.profileEdit)
+routers.post('/user/:userId/profile/edit', Controller.handleEdit)
+
 routers.get('/post/:profileId', Controller.postContent)
 routers.post('/post/:profileId', Controller.handlePost)
 routers.get('/post/:postId/detail', Controller.postDetail)
 // routers.get('/post/:postId/edit')
 // routers.post('/post/:postId/edit')
 routers.get('/like/:PostId', Controller.handleLike)
+routers.get('/delete/:postId', Controller.handleDelete)
 routers.get('/logout', Controller.logout)
+
+
 
 
 module.exports = routers

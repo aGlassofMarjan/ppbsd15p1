@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
+    
+
     showStatus(){
       let stats
       if (this.status === true){

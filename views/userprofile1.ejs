@@ -145,6 +145,8 @@
                     <div class="logostyle">Vritta</div>
                 </a>
                 <!-- <input type="text" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;"> -->
+                <!--INI LOGUT, BUTUH STYLING LAGI-->                
+                <a href="/logout">Logout</a>
          <% if (profile) { %>
             </div>
             <a href="/post/<%= profile.id %>">
@@ -175,7 +177,7 @@
                 <button class="category-button">Photography</button>
                 <button class="category-button">Productivity</button>
             </div> -->
-            <% profile.Posts.forEach(el => { %>  
+            <% post[0].forEach(el => { %>  
                
                 <a href="/post/<%= el.id %>/detail">
                 <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
@@ -185,7 +187,7 @@
                                 <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
                                     alt="" class="rounded-full">
                             </div>
-                            <p class="text-gray-500 mb-2"><b><%= profile.fullName %></b> · <%= el.createdAt %> · 6 min read</p>
+                            <p class="text-gray-500 mb-2"><b><%= profile.fullName %></b> · <%= Post.time(el.createdAt) %> · 6 min read</p>
                         </div>
                         <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.title %></h2>
                         <p class="lorafonts"> <%= el.content %>
@@ -211,11 +213,11 @@
                         <%= profile.fullName %>
                     </h2>
                     <p class="text-gray-500 font-normal mb-4">
-                        <%= profile.nickName %> | <%= profile.birthdate %>
+                        <%= profile.nickName %> | <%= profile.reversedDate %>
                     </p><!--Bergabung pada 26 April 2024 -->
                     <!-- kalo akun sendiri, ini ada -->
 
-                    <a href="/user/<%= edit.id %>/profile/setup"><button
+                    <a href="/user/<%= edit.id %>/profile/edit"><button
                             class="bg-white px-3 py-1 rounded-full hover:bg-black hover:text-white"
                             style="border: solid 1px black;">Edit Profile</button></a>
                     <% } else { %>

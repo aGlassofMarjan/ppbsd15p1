@@ -8,5 +8,33 @@
 <body>
   <%- include('./partials/admin.ejs') %>
   <h1>Post List</h1>
+
+
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Ttile</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>Username</th>
+        <th>Created at</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% post.forEach(el => { %>  
+        <tr>
+          <td><%=el.title  %></td>
+          <td><%=el.content  %></td>
+          <td><img src="<%=el.imgURL  %>" alt=""></td>
+          <td><%=el.Profile.username %></td>
+          <td><%=el.createdAt %></td>
+          <td><a href="/delete/<%= el.id %>">Delete</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+
+  </table>
 </body>
 </html>

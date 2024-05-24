@@ -1,4 +1,4 @@
-const { User, Profile, Category, Post, Interaction } = require('../models')
+const { User, Profile, Category, Post, Interaction, sequelize } = require('../models')
 const reversedDate = require('../helpers/formatDate')
 const bcrypt = require('bcryptjs')
 const { fn, col } = require('sequelize')
@@ -109,9 +109,12 @@ class Controller {
 
   static async adminDashboardPost(req, res) {
     try {
-      const user = await User.findAll()
+      const post = await Post.findAll({
+        include:Profile
+      })
+      // console.log(post)
 
-      res.render('adminDashboardPost', { user })
+      res.render('adminDashboardPost', { post })
     } catch (error) {
       res.send(error)
     }
@@ -123,11 +126,12 @@ class Controller {
       let { search } = req.query
       let id = req.session.user
 
+      // const time = await Post.time(num)
       let option = {
         order: [['createdAt', 'DESC']],
         include: [
           {
-            model: Profile,
+            model: Profile
           }
         ]
       }
@@ -144,7 +148,7 @@ class Controller {
 
 
       const user = await User.findByPk(id)
-      res.render('timeline1', { user, post })
+      res.render('timeline1', { user, post, Post })
     } catch (error) {
       res.send(error)
     }
@@ -155,14 +159,19 @@ class Controller {
       let id = req.session.user
       const edit = await User.findByPk(id)
       const profile = await Profile.findOne({
-        include: Post,
         where: {
           UserId: id
         }
       })
-      console.log(profile.Posts.length)
+      // console.log(profile)
+      const post = await sequelize.query(`SELECT *
+      FROM "Profiles" p
+      JOIN "Posts" p2 ON p2."ProfileId" = p.id 
+      WHERE p."UserId" = 2 ORDER BY p."createdAt" ASC `)
+      // console.log(profile)
+      // console.log(profile.Posts.length, "iiiiiii")
       if(profile){
-        res.render('userprofile1', { edit, profile })
+        res.render('userprofile1', { edit, profile, Post, post })
       }else {
         res.redirect(`/user/${id}}/profile/setup`)
       }
@@ -217,6 +226,7 @@ class Controller {
             UserId: id
           }
         })
+        // const category = await Category.findAll()
         // console.log(profile, '<<<<<')
         if(profile){
           res.render('posthandler', { profile })
@@ -257,26 +267,27 @@ class Controller {
         },
         include: {
           model: Profile,
+          include: {
+            model: User
+          }
           // where: {
           //   UserId: id
           // }
         }
       })
-      // console.log(post.Profile)
+      console.log(post.Profile.User.id,'<<<<')
       if (!post) {
         throw new Error('Post not found')
       }
-      const likeCount = await Interaction.findOne({
+      const likeCount = await Interaction.count({
         where: {
-          PostId: postId,
-          like: true,
-        },
-        attributes: [[fn('COUNT', col('id')), 'likeCount']],
-        raw: true,
-      })
+            PostId: postId,
+            like: true,
+        }
+    })
       // console.log(likeCount)
 
-      res.render('postdetail', { post, likeCount })
+      res.render('postdetail', { post, Post, likeCount })
     } catch (error) {
       res.send(error)
     }
@@ -322,12 +333,12 @@ class Controller {
       // console.log(req.params)
       let id = req.session.user
       const { PostId } = req.params
-      const isPorfile = await Profile.findOne({
+      const isProfile = await Profile.findOne({
         where: {
           UserId: id
         }
       })
-      if(isPorfile){
+      if(isProfile){
 
         const post = await Post.findOne({ where: { id: PostId } })
   
@@ -347,15 +358,65 @@ class Controller {
         })
   
         if (interaction) {
-          interaction.like = !interaction.like;
-          await interaction.save();
-        } else {
           interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
         }
   
         res.redirect(`/post/${PostId}/detail`)
       }
 
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handleDelete(req, res){
+    try {
+      console.log(req.params)
+      let { postId } = req.params
+      await Interaction.destroy({
+        where: {
+          PostId: postId
+        }
+      })
+      await Post.destroy({
+        where: {
+          id: postId
+        }
+      })
+      res.redirect('/admin/post')
+
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async profileEdit(req,res){
+    try {
+      let id = req.session.user
+      let profile = await Profile.findOne({
+        where: {
+          UserId: id
+        }
+      })
+      // console.log(profile)
+      res.render('editOldProfile', {profile})
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  static async handleEdit(req,res){
+    try {
+      // console.log(req.body)
+      let id = req.session.user
+      let {fullName, nickName, profilePict, birthdate, gender} = req.body
+
+      await Profile.update({fullName, nickName, profilePict, birthdate, gender}, {
+        where: {
+          UserId: id
+        }
+      })
+      res.redirect(`/user/${id}/profile`)
+      
     } catch (error) {
       res.send(error)
     }

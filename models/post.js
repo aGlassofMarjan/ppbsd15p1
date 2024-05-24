@@ -9,6 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    static time(num){
+      const timeDiff = new Date().getTime() - new Date(num).getTime();
+      const minutes = Math.floor(timeDiff / 60000);
+      if (minutes < 60) {
+        return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      } else {
+        const hours = Math.floor(minutes / 60);
+        return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      }
+    }
     static associate(models) {
       // define association here
       this.hasMany(models.Interaction)
@@ -22,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     imgURL: DataTypes.TEXT,
     content: DataTypes.TEXT,
     ProfileId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER,
     title: DataTypes.STRING
   }, {
     sequelize,

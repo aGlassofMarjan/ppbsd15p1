@@ -339,7 +339,7 @@
     <header class="header">
         <div class="container header-container">
             <a href="/home">
-                <div class="logo">Medium</div>
+                <div class="logo">Vritta</div>
             </a>
             <div class="header-actions">
                 <input type="text" placeholder="Search" class="search-input">
@@ -356,15 +356,17 @@
                 <h1 class="article-title"><%= post.title %></h1>
                 <!-- <p class="article-intro"></p> -->
                 <div class="author-info">
+                    <a href="/user/<%= post.Profile.User.id %>/profile">
                     <!-- <div class="author-avatar"></div> -->
                     <img src="<%= post.Profile.profilePict %>" class="author-avatar" srcset="">
                     <div>
                         <p class="author-name"><%= post.Profile.fullName %></p>
-                        <p class="publication-info">Published in Towards Data Science · 8 min read · <%= post.createdAt %></p>
+                        <p class="publication-info">Published in Towards Data Science · 8 min read · <%= Post.time(post.createdAt)  %></p>
                     </div>
                 </div>
                 <div class="article-actions">
                     <div class="action">
+                    </a>
                         <!-- tanda like -->
                         <a href="/like/<%= post.id %>">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -373,9 +375,10 @@
                                 </path>
                             </svg>
                         </a>
-                            <span><%= likeCount.likeCount %></span>
+                            <span><%= likeCount %></span>
                         </div>
                     </div>
+                    <img src="<%- post.imgURL %>" alt="">
                     <p class="article-paragraph lorafonts"><%- post.content %></p>
                 </article>
             <!-- Author Section -->
