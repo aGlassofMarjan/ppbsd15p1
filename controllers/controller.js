@@ -1,7 +1,7 @@
 const { User, Profile, Category, Post, Interaction, sequelize } = require('../models')
 const reversedDate = require('../helpers/formatDate')
 const bcrypt = require('bcryptjs')
-const { fn, col } = require('sequelize')
+// const { fn, col } = require('sequelize')
 const { Op } = require('sequelize')
 
 
@@ -330,7 +330,7 @@ class Controller {
 
   static async handleLike(req, res) {
     try {
-      // console.log(req.params)
+      console.log(req.params)
       let id = req.session.user
       const { PostId } = req.params
       const isProfile = await Profile.findOne({
@@ -357,7 +357,8 @@ class Controller {
           where: { ProfileId: profile.id, PostId: post.id },
         })
   
-        if (interaction) {
+        if (!interaction) {
+          console.log('aaaa')
           interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
         }
   

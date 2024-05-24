@@ -155,10 +155,10 @@
             </a>
             <div class="relative inline-block text-left" style="z-index: 1;">
                 <div id="dropdownToggle" class="w-8 h-8 rounded-full bg-gray-900 dropdown-toggle">
-                    <img src="<%= Profile.profilePict %>" alt="" srcset="">
+                    <img src="<%= profile.profilePict %>" alt="" srcset="">
                 </div>
                 <div class="absolute right-0 hidden mt-2 w-48 bg-white rounded-md shadow-lg" id="dropdownMenu">
-                    <a href="/user/<%= user.id %>/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                    <a href="/user/<%= profile.id %>/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
                         👤 Profile</a>
                     <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
                         🚪 Sign Out</a>
