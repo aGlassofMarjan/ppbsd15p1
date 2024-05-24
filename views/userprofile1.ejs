@@ -145,17 +145,26 @@
                     <div class="logostyle">Vritta</div>
                 </a>
                 <!-- <input type="text" placeholder="  Search" class="border rounded-full p-2" style="border-radius: 20px;"> -->
-                <!--INI LOGUT, BUTUH STYLING LAGI-->                
+                <!--INI LOGUT, BUTUH STYLING LAGI-->
                 <a href="/logout">Logout</a>
-         <% if (profile) { %>
+                <% if (profile) { %>
             </div>
             <a href="/post/<%= profile.id %>">
-            <div class="flex items-center space-x-4">
                 <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
                     style="border: solid 1px black;">Write</button>
-                <div class="w-8 h-8 rounded-full bg-gray-400"></div>
+            </a>
+            <div class="relative inline-block text-left" style="z-index: 1;">
+                <div id="dropdownToggle" class="w-8 h-8 rounded-full bg-gray-900 dropdown-toggle">
+                    <img src="<%= Profile.profilePict %>" alt="" srcset="">
+                </div>
+                <div class="absolute right-0 hidden mt-2 w-48 bg-white rounded-md shadow-lg" id="dropdownMenu">
+                    <a href="/user/<%= user.id %>/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                        👤 Profile</a>
+                    <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                        🚪 Sign Out</a>
+                </div>
             </div>
-        </a>
+
         </div>
     </header>
     <div class="container mx-auto flex mt-4">
@@ -177,114 +186,135 @@
                 <button class="category-button">Photography</button>
                 <button class="category-button">Productivity</button>
             </div> -->
-            <% post[0].forEach(el => { %>  
-               
+            <% post[0].forEach(el=> { %>
+
                 <a href="/post/<%= el.id %>/detail">
-                <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
-                    <div>
-                        <div class="flex align-center">
-                            <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
-                                <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
-                                    alt="" class="rounded-full">
+                    <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
+                        <div>
+                            <div class="flex align-center">
+                                <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
+                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
+                                        alt="" class="rounded-full">
+                                </div>
+                                <p class="text-gray-500 mb-2"><b>
+                                        <%= profile.fullName %>
+                                    </b> · <%= Post.time(el.createdAt) %> · 6 min read</p>
                             </div>
-                            <p class="text-gray-500 mb-2"><b><%= profile.fullName %></b> · <%= Post.time(el.createdAt) %> · 6 min read</p>
+                            <h2 class="text-xl font-bold mb-1 lorafonts">
+                                <%= el.title %>
+                            </h2>
+                            <p class="lorafonts">
+                                <%= el.content %>
+                            </p>
+                            <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button>
                         </div>
-                        <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.title %></h2>
-                        <p class="lorafonts"> <%= el.content %>
-                        </p>
-                        <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button>
+                        <div class="ml-10">
+                            <img style="object-fit: cover;" class="w-60 h-40" src="<%= el.imgURL %>">
+                            </img>
+                        </div>
                     </div>
-                    <div class="ml-10">
-                        <img style="object-fit: cover;" class="w-60 h-40"
-                            src="<%= el.imgURL %>">
-                        </img>
-                    </div>
-                </div>
-            <% }) %>
-        </a>
+                    <% }) %>
+                </a>
         </main>
 
         <aside class="w-1/3 p-4">
             <div class="sticky top-0">
-               
-                    <img src="<%= profile.profilePict %>" alt="" class="rounded-full mr-3 mb-3"
-                        style="width: 15vh; height: 15vh;">
-                    <h2 class="text-gray-800 text-lg font-semibold mb-1">
-                        <%= profile.fullName %>
-                    </h2>
+
+                <img src="<%= profile.profilePict %>" alt="" class="rounded-full mr-3 mb-3"
+                    style="width: 15vh; height: 15vh;">
+                <h2 class="text-gray-800 text-lg font-semibold mb-1">
+                    <%= profile.fullName %>
+                </h2>
+                <p class="text-gray-500 font-normal mb-4">
+                    <%= profile.nickName %> | <%= profile.reversedDate %>
+                </p><!--Bergabung pada 26 April 2024 -->
+                <!-- kalo akun sendiri, ini ada -->
+
+                <a href="/user/<%= edit.id %>/profile/edit"><button
+                        class="bg-white px-3 py-1 rounded-full hover:bg-black hover:text-white"
+                        style="border: solid 1px black;">Edit Profile</button></a>
+                <% } else { %>
                     <p class="text-gray-500 font-normal mb-4">
-                        <%= profile.nickName %> | <%= profile.reversedDate %>
-                    </p><!--Bergabung pada 26 April 2024 -->
-                    <!-- kalo akun sendiri, ini ada -->
+                        Pengguna ini belum menyunting profilenya.
+                    </p>
+                    <% } %>
+                        <div>
+                            <h2 class="font-semibold mt-12 mb-4">Temukan Author Lain</h2>
+                            <ul class="space-y-4">
+                                <li class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
+                                        <div>
+                                            <h3 class="font-normal text-sm">Crypto Big Stories</h3>
+                                            <p>Bergabung pada 26 April 2024</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="bg-white text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
+                                        style="border: solid 1px black">Follow</button>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
+                                        <div>
+                                            <h3 class="font-normal text-sm">Ignacio de Gregorio</h3>
+                                            <p>Bergabung pada 26 April 2024</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="bg-white text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
+                                        style="border: solid 1px black">Follow</button>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
+                                        <div>
+                                            <h3 class="font-normal text-sm">Nikhil Vemu</h3>
+                                            <p>Bergabung pada 26 April 2024</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="bg-white text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
+                                        style="border: solid 1px black">Follow</button>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <a href="/user/<%= edit.id %>/profile/edit"><button
-                            class="bg-white px-3 py-1 rounded-full hover:bg-black hover:text-white"
-                            style="border: solid 1px black;">Edit Profile</button></a>
-                    <% } else { %>
-                        <p class="text-gray-500 font-normal mb-4">
-                            Pengguna ini belum menyunting profilenya.
-                        </p>
-                        <% } %>
-                            <div>
-                                <h2 class="font-semibold mt-12 mb-4">Temukan Author Lain</h2>
-                                <ul class="space-y-4">
-                                    <li class="flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
-                                            <div>
-                                                <h3 class="font-normal text-sm">Crypto Big Stories</h3>
-                                                <p>Bergabung pada 26 April 2024</p>
-                                            </div>
-                                        </div>
-                                        <button
-                                            class="bg-white text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
-                                            style="border: solid 1px black">Follow</button>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
-                                            <div>
-                                                <h3 class="font-normal text-sm">Ignacio de Gregorio</h3>
-                                                <p>Bergabung pada 26 April 2024</p>
-                                            </div>
-                                        </div>
-                                        <button
-                                            class="bg-white text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
-                                            style="border: solid 1px black">Follow</button>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
-                                            <div>
-                                                <h3 class="font-normal text-sm">Nikhil Vemu</h3>
-                                                <p>Bergabung pada 26 April 2024</p>
-                                            </div>
-                                        </div>
-                                        <button
-                                            class="bg-white text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
-                                            style="border: solid 1px black">Follow</button>
-                                    </li>
-                                </ul>
+                        <div style="margin-top: 15vh;">
+                            <!-- <h2 class="font-semibold mt-6 mb-4">Recommended topics</h2> -->
+                            <div class="flex flex-wrap gap-2">
+                                <button class="text-xs">Bantuan</button>
+                                <button class="text-xs">Status</button>
+                                <button class="text-xs">Tentang</button>
+                                <button class="text-xs">Karir</button>
+                                <button class="text-xs">Press</button>
+                                <button class="text-xs">Blog</button>
+                                <button class="text-xs">Keamanan</button>
+                                <button class="text-xs">Syarat</button>
+                                <button class="text-xs">Text to speech</button>
+                                <button class="text-xs">Tim kami</button>
                             </div>
-
-                            <div style="margin-top: 15vh;">
-                                <!-- <h2 class="font-semibold mt-6 mb-4">Recommended topics</h2> -->
-                                <div class="flex flex-wrap gap-2">
-                                    <button class="text-xs">Bantuan</button>
-                                    <button class="text-xs">Status</button>
-                                    <button class="text-xs">Tentang</button>
-                                    <button class="text-xs">Karir</button>
-                                    <button class="text-xs">Press</button>
-                                    <button class="text-xs">Blog</button>
-                                    <button class="text-xs">Keamanan</button>
-                                    <button class="text-xs">Syarat</button>
-                                    <button class="text-xs">Text to speech</button>
-                                    <button class="text-xs">Tim kami</button>
-                                </div>
-                            </div>
+                        </div>
             </div>
         </aside>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.getElementById('dropdownToggle');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', (event) => {
+                if (!event.target.matches('.dropdown-toggle')) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

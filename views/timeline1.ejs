@@ -154,6 +154,18 @@
                         <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
                             style="border: solid 1px black;">Write</button>
                     </a>
+                    <div class="relative inline-block text-left" style="z-index: 1;">
+                        <div id="dropdownToggle" class="w-8 h-8 rounded-full bg-gray-900 dropdown-toggle">
+                            <img src="<%= post[0].dataValues.Profile.profilePict %>" alt="" srcset="">
+                        </div>
+                        <div class="absolute right-0 hidden mt-2 w-48 bg-white rounded-md shadow-lg" id="dropdownMenu">
+                            <a href="/user/<%= user.id %>/profile"
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                                👤 Profile</a>
+                            <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                                🚪 Sign Out</a>
+                        </div>
+                    </div>
                     <a href="/user/<%= user.id %>/profile">
                         <div class="w-8 h-8 rounded-full bg-gray-400"></div>
                     </a>
@@ -269,6 +281,23 @@
             </div>
         </aside>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.getElementById('dropdownToggle');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', (event) => {
+                if (!event.target.matches('.dropdown-toggle')) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
