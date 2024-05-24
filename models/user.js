@@ -12,7 +12,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-    
+    get age(){
+      let bitrhYear = new Date(this.birthdate).getFullYear()
+
+      let data = Date.now() 
+      data = new Date().getFullYear()
+
+      const age = data - bitrhYear
+
+      return age
+    }
 
     showStatus(){
       let stats
@@ -55,11 +64,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'gender must be filled'
+          msg: 'Gender must be filled'
         },
         notNull: {
           notNull: {
-            msg: `gender can't be empty`
+            msg: `Gender can't be empty`
           }
         }
       }
@@ -74,6 +83,12 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           notNull: {
             msg: `birth date can't be empty`
+          }
+        },
+        isBelow17(){
+          const age = this.age
+          if (age < 17){
+            throw new Error(`Age must be over 17 years`)
           }
         }
       }

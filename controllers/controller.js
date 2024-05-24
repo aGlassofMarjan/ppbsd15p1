@@ -55,6 +55,7 @@ class Controller {
 
   static handleLogin(req, res) {
     const { email, password } = req.body
+    // console.log('masuk login')
 
     User.findOne({ where: { email } })
       .then(user => {
@@ -67,10 +68,11 @@ class Controller {
             //   return res.redirect('/suspended');
             // }
             req.session.user = user.id
+            req.session.userEmail = user.email
             req.session.isAdmin = user.isAdmin
             req.session.status = user.status
             // req.session.status = user.status
-
+            // console.log(req.session, '<<<< session nih')
             return res.redirect(user.isAdmin ? '/admin/user' : '/home')
           } else {
             const error = `invalid username/password`
@@ -88,6 +90,7 @@ class Controller {
     req.session.destroy((err) => {
       if (err) console.log(err)
       else {
+        console.log('berhasil logout')
         res.redirect('/login')
       }
     })
@@ -96,12 +99,14 @@ class Controller {
   static async adminDashboardUser(req, res) {
     try {
       const user = await User.findAll({
+        include: Profile,
         where: {
           isAdmin: false
         }
       })
+      // res.send(user)
 
-      res.render('adminDashboardUser', { user })
+      res.render('admindashboard', { user })
     } catch (error) {
       res.send(error)
     }
@@ -167,7 +172,7 @@ class Controller {
       const post = await sequelize.query(`SELECT *
       FROM "Profiles" p
       JOIN "Posts" p2 ON p2."ProfileId" = p.id 
-      WHERE p."UserId" = 2 ORDER BY p."createdAt" ASC `)
+      WHERE p."UserId" = ${id} ORDER BY p."createdAt" ASC `)
       // console.log(profile)
       // console.log(profile.Posts.length, "iiiiiii")
       if(profile){
@@ -331,35 +336,54 @@ class Controller {
   static async handleLike(req, res) {
     try {
       console.log(req.params)
-      let id = req.session.user
+      let id = req.session.user // id dila
       const { PostId } = req.params
       const isProfile = await Profile.findOne({
         where: {
           UserId: id
         }
-      })
+      })  // profile dila
       if(isProfile){
 
-        const post = await Post.findOne({ where: { id: PostId } })
+        const post = await Post.findOne({ where: { id: PostId } }) // post buatan yobel
   
         if (!post) {
           throw new Error('Post not found')
         }
   
         // Retrieve the associated profile of the post
-        const profile = await Profile.findOne({ where: { id: post.ProfileId } });
+        // const profile = await Profile.findOne({ where: { id: post.ProfileId } }); // profilenya yobel
   
-        if (!profile) {
-          throw new Error('Profile not found')
-        }
+        // if (!profile) {
+        //   throw new Error('Profile not found')
+        // }
   
         let interaction = await Interaction.findOne({
-          where: { ProfileId: profile.id, PostId: post.id },
+          where: { ProfileId: isProfile.id, PostId: post.id },
         })
   
         if (!interaction) {
           console.log('aaaa')
-          interaction = await Interaction.create({ like: true, ProfileId: profile.id, PostId: post.id });
+          interaction = await Interaction.create({ like: true, ProfileId: isProfile.id, PostId: post.id });
+        } else {
+          // await Interaction.destroy({
+          //   where: {
+          //     id: interaction.id
+          //   },
+          // })
+          // console.log('masuk');
+          console.log(interaction.id, '<<< id')
+          const result = await Interaction.update(
+            { like: !interaction.like },
+            {
+              where: {
+                id: interaction.id
+              },
+              returning: true
+            }
+          )
+
+          console.log(result, '<<< result')
         }
   
         res.redirect(`/post/${PostId}/detail`)

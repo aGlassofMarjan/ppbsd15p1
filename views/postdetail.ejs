@@ -15,6 +15,15 @@
             font-style: normal;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+        .logostyle {
+            font-family: "Spectral", serif;
+            font-weight: 750;
+            font-size: 1.8rem;
+            letter-spacing: -1.3px;
+        }
+
         body {
             font-family: sohne, 'Helvetica Neue', Helvetica, Arial, sans-serif;
             /* background-color: #f3f4f6; */
@@ -58,14 +67,21 @@
         }
 
         .write-button {
-            background-color: #000;
-            color: #fff;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 16px;
-        }
+    outline: solid 1px #000;
+    color: #000000;
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.write-button:hover{
+    background-color: #000;
+    color: #fff;
+
+}
 
         .user-avatar {
             width: 32px;
@@ -337,14 +353,14 @@
 
 <body>
     <header class="header">
-        <div class="container header-container">
-            <a href="/home">
-                <div class="logo">Vritta</div>
+        <div class=" header-container">
+            <a href="" style="text-decoration: none; color: black;">
+                <div class="logostyle" style="margin-left: 5vh;">
+                    Vritta
+                </div>
             </a>
-            <div class="header-actions">
-                <input type="text" placeholder="Search" class="search-input">
-                <button class="write-button">Write</button>
-                <div class="user-avatar"></div>
+            <div class="header-actions" style="margin-right: 5vh;">
+                <a href="/home"><button class="write-button">Back</button></a> 
             </div>
         </div>
     </header>
@@ -378,7 +394,10 @@
                             <span><%= likeCount %></span>
                         </div>
                     </div>
-                    <img src="<%- post.imgURL %>" alt="">
+                    <div class="align-center justify-center text-center">
+                        <img src="<%- post.imgURL %>" alt="">
+
+                    </div>
                     <p class="article-paragraph lorafonts"><%- post.content %></p>
                 </article>
             <!-- Author Section -->

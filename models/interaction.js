@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Interaction.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     like: DataTypes.BOOLEAN,
     ProfileId: DataTypes.INTEGER,
     PostId: DataTypes.INTEGER

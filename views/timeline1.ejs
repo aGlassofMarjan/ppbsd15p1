@@ -141,7 +141,7 @@
         <div class="container mx-auto flex justify-between items-center p-4">
             <div class="flex items-center space-x-4">
                 <a href="/home">
-                    <div class="text-xl font-bold logostyle">Vritta</div>
+                    <div class="text-2xl logostyle">Vritta</div>
                 </a>
                 <form action="/home" method="get">
                     <input type="search" placeholder="  Search" class="border rounded-full p-2"
@@ -154,9 +154,9 @@
                         <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
                             style="border: solid 1px black;">Write</button>
                     </a>
-                    <div class="relative inline-block text-left" style="z-index: 1;">
-                        <div id="dropdownToggle" class="w-8 h-8 rounded-full bg-gray-900 dropdown-toggle">
-                            <img src="<%= post[0].dataValues.Profile.profilePict %>" alt="" srcset="">
+                    <div class="relative inline-block text-left" style="z-index: 4;">
+                        <div id="dropdownToggle" class="w-8 h-8 rounded-full dropdown-toggle">
+                            <img class="w-8 h-8 rounded-full" src="<%= post[0].dataValues.Profile.profilePict %>" alt="" srcset="">
                         </div>
                         <div class="absolute right-0 hidden mt-2 w-48 bg-white rounded-md shadow-lg" id="dropdownMenu">
                             <a href="/user/<%= user.id %>/profile"
@@ -166,9 +166,7 @@
                                 🚪 Sign Out</a>
                         </div>
                     </div>
-                    <a href="/user/<%= user.id %>/profile">
-                        <div class="w-8 h-8 rounded-full bg-gray-400"></div>
-                    </a>
+                    
                     <% } else { %>
                         <a href="/login">
                             <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
@@ -182,7 +180,7 @@
         <main class="w-2/3 p-4" style="border-right: solid 1px #d3d3d3;">
             <% post.forEach(el=> { %>
                 <a href="/post/<%= el.id %>/detail">
-                    <div class="bg-white p-4 mb-4" style="display: flex;border-bottom: solid 1px #d3d3d3;">
+                    <div class="bg-white p-4 mb-4 justify-between" style="display: flex;border-bottom: solid 1px #d3d3d3;">
                         <div>
                             <div class="flex align-center">
                                 <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
@@ -195,10 +193,12 @@
                             <h2 class="text-xl font-bold mb-1 lorafonts">
                                 <%= el.title %>
                             </h2>
-                            <p class="lorafonts"><%- el.content %></p>
+                            <div class="overflow-hidden" style="height: 80px;">
+                                <p class="lorafonts"><%- el.content %></p>
+                            </div>
                             <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button>
                         </div>
-                        <div class="ml-10">
+                        <div class="ml-10" style="min-width: 180px;">
                             <img style="object-fit: cover;" class="w-60 h-40" src="<%= el.imgURL %>"></img>
                         </div>
                     </div>
@@ -208,29 +208,18 @@
         <aside class="w-1/3 p-4">
             <div class="sticky top-0">
                 <h2 class="font-semibold mb-4">Your Latest Release</h2>
-                <ul class="space-y-2">
-                    <li class="flex items-center">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
+                <ul class="space-y-2 overflow-y-auto" style="height: 300px;">
+                    <% post.forEach(el => { %>
+                     <li class="flex items-center">
+                        <img src="<%= el.imgURL %>"
                             alt="" class="w-10 h-10 rounded-full mr-3">
                         <div>
-                            <h3 class="font-semibold text-sm">It happened on Medium: April 2024 roundup</h3>
-                            <p class="text-gray-500 text-xs">Medium Staff in The Medium Blog</p>
+                            <h3 class="font-semibold text-sm"><%= el.title %></h3>
+                            <p class="text-gray-500 text-xs"><%-el.content %></p>
                         </div>
                     </li>
-                    <li class="flex items-center">
-                        <div class="bg-gray-300 w-10 h-10 rounded-full mr-3"></div>
-                        <div>
-                            <h3 class="font-semibold text-sm">The Controversial Truth about Tech Debt</h3>
-                            <p class="text-gray-500 text-xs">Raphael Moutard</p>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div class="bg-gray-300 w-10 h-10 rounded-full mr-3"></div>
-                        <div>
-                            <h3 class="font-semibold text-sm">Drama In The Trump Trial</h3>
-                            <p class="text-gray-500 text-xs">Liza Donnelly</p>
-                        </div>
-                    </li>
+                    <% }) %>
+                    
                 </ul>
                 <h2 class="font-semibold mt-6 mb-4">Recommended topics</h2>
                 <div class="flex flex-wrap gap-2">
@@ -242,42 +231,6 @@
                     <button class="bg-gray-200 rounded-full px-3 py-1 text-xs">Money</button>
                     <button class="bg-gray-200 rounded-full px-3 py-1 text-xs">Business</button>
                 </div>
-                <h2 class="font-semibold mt-6 mb-4">Visit Authors</h2>
-                <ul class="space-y-4">
-                    <li class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
-                            <div>
-                                <h3 class="font-semibold text-sm">Crypto Big Stories</h3>
-                                <p>I create unique cryptocurrency content, and share tips to help</p>
-                            </div>
-                        </div>
-                        <button class="bg-blue-500 text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
-                            style="border: solid 1px black">Follow</button>
-                    </li>
-                    <li class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
-                            <div>
-                                <h3 class="font-semibold text-sm">Ignacio de Gregorio</h3>
-                                <p>I break down the frontier AI systems in the world for you.</p>
-                            </div>
-                        </div>
-                        <button class="bg-blue-500 text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
-                            style="border: solid 1px black">Follow</button>
-                    </li>
-                    <li class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="bg-gray-300 w-8 h-8 rounded-full mr-3"></div>
-                            <div>
-                                <h3 class="font-semibold text-sm">Nikhil Vemu</h3>
-                                <p>Apple Geek. | Get the best bargains for your favourite</p>
-                            </div>
-                        </div>
-                        <button class="bg-blue-500 text-black px-3 py-1 text-xs rounded hover:text-white hover:bg-black"
-                            style="border: solid 1px black">Follow</button>
-                    </li>
-                </ul>
             </div>
         </aside>
     </div>
@@ -287,13 +240,15 @@
             const dropdownMenu = document.getElementById('dropdownMenu');
 
             dropdownToggle.addEventListener('click', () => {
+                // console.log('klik')
                 dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
             });
 
             // Close the dropdown if the user clicks outside of it
             window.addEventListener('click', (event) => {
                 if (!event.target.matches('.dropdown-toggle')) {
-                    dropdownMenu.style.display = 'none';
+                    // console.log('masukkkk ')
+                    // dropdownMenu.style.display = 'none';
                 }
             });
         });

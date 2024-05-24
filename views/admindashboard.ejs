@@ -139,6 +139,7 @@
 
 <body class="">
     <header class="bg-white" style="border-bottom: solid 1px #d3d3d3;">
+        <%- //include('./partials/admin.ejs') %>
         <div class="container mx-auto flex justify-between items-center p-4">
             <div class="flex items-center space-x-4">
                 <div class="text-2xl font-bold logostyle">Vritta</div>
@@ -147,7 +148,18 @@
             <div class="flex items-center space-x-4">
                 <!-- <button class="bg-white px-4 py-2 rounded-full hover:bg-black hover:text-white"
                     style="border: solid 1px black;">Write</button> -->
-                <div class="w-8 h-8 rounded-full bg-gray-400"></div>
+                    <p class="text-lg text-gray-900">Admin</p>
+                <div class="relative inline-block text-left" style="z-index: 1;">
+                    <div id="dropdownToggle" class="w-8 h-8 rounded-full bg-gray-900 dropdown-toggle"></div>
+                    <div class="absolute right-0 hidden mt-2 w-48 bg-white rounded-md shadow-lg" id="dropdownMenu">
+                        <a href="/admin/post" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                            👤 Post List</a>
+                        <a href="/admin/user" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                            ⚙️ User List</a>
+                        <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex">
+                            🚪 Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -159,56 +171,39 @@
                 <p class="text-lg text-gray-500">Aksi</p>
                 <!-- kalo sempet bikin handle asc desc -->
             </div>
+
+            <% user.forEach(el => { %>
             <div class="bg-white p-4 mb-4 justify-between" style="display: flex;border-bottom: solid 1px #d3d3d3;">
+                
                 <div>
-                    <div class="flex align-center">
-                        <div class="w-11 h-11 rounded-full bg-gray-400 mr-1">
-                            <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
-                                alt="" class="rounded-full">
+                    <div class="flex gap-[20px] items-center">
+                        <div class="w-11 h-11 mr-1">
+                            <img src="<%= el.Profile?.profilePict || 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png' %>"
+                                alt="" class="" height="50px">
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.fullName %></h2>
+                            <p class="lorafonts"><%= el.email %>
+                            </p>
+                            <p class="lorafonts">
+                                <p>Status: <span class="bg-gray-300 px-[5px] py-[3px] rounded-[10px]"> <%= el.showStatus() %> </span> </p>
+                            </p>
                         </div>
                         <!-- <p class="text-gray-500 mb-2"><b>Tyler Wall</b> · Mar 10, 2024 · 6 min read</p> -->
                     </div>
-                    <h2 class="text-xl font-bold mb-1 lorafonts">Yobel Sahala</h2>
-                    <p class="lorafonts">yobelsahala@gmail.com
-                    </p>
-                    <p class="lorafonts">belkobel
-                    </p>
                     <!-- <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button> -->
                 </div>
-                <div class="ml-10 mt-10 mr-4">
-                    <p>Suspended</p>
-                </div>
+                
+                <a href="/admin/suspend/<%= el.id %>">
                 <div style="margin-left: 16vh;">
-                    <!-- <button class="bg-white px-6 py-2 rounded-full hover:bg-black hover:text-white"
-                        style="border: solid 1px black;">Suspend</button> -->
-                </div>
-            </div>
-            <div class="bg-white p-4 mb-4 justify-between" style="display: flex;border-bottom: solid 1px #d3d3d3;">
-                <div>
-                    <div class="flex align-center">
-                        <div class="w-11 h-11 rounded-full bg-gray-400 mr-1">
-                            <img src="https://static.vecteezy.com/system/resources/thumbnails/028/626/672/small_2x/hd-image-ai-generative-free-photo.jpeg"
-                                alt="" class="rounded-full">
-                        </div>
-                        <!-- <p class="text-gray-500 mb-2"><b>Tyler Wall</b> · Mar 10, 2024 · 6 min read</p> -->
-                    </div>
-                    <h2 class="text-xl font-bold mb-1 lorafonts">Yobel Sahala</h2>
-                    <p class="lorafonts">yobelsahala@gmail.com
-                    </p>
-                    <p class="lorafonts">belkobel
-                    </p>
-                    <!-- <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button> -->
-                </div>
-                <div class="ml-10 mt-10 mr-4">
-                    <p>Active</p>
-                </div>
-                <div class="ml-10 mt-6">
                     <button class="bg-white px-6 py-2 rounded-full hover:bg-black hover:text-white"
                         style="border: solid 1px black;">Suspend</button>
                 </div>
+            </a>
             </div>
+            <% }) %>
+            
         </main>
-
         <aside class="w-1/3 p-4">
             <div class="sticky top-0">
                 <div class="p-8 mb-9" style="border-bottom:solid 1px #d3d3d3;">
@@ -219,6 +214,23 @@
             </div>
         </aside>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.getElementById('dropdownToggle');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', (event) => {
+                if (!event.target.matches('.dropdown-toggle')) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
