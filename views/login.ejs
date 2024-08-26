@@ -2,22 +2,84 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vritta · Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vritta · Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@7/dist/typeit.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./bookvector.jpg');
+            /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+        .lorafonts {
+            font-family: "Lora", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 </head>
 
-<body>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white p-11 rounded-lg shadow-lg w-full max-w-3xl flex" style="background-color: #ffffff;">
+        <div class="w-1/2">
+            <h1 class="text-4xl lorafonts">Vritta · Login</h1>
+            <br>
+            <p class="text-lg lorafonts">Lanjutkan legasimu, mulai bercerita mengenai;</p>
+            <!-- <p class="text-lg lorafonts">Mulai bercerita mengenai</p> -->
+            <div class="text-lg lorafonts" id="hero"></div>
+            <div class="flex items-center mb-6">
+                <!-- <img src="https://example.com/adobe-logo.png" alt="Adobe Logo" class="h-8 mr-2"> -->
+                <!-- Replace with the Adobe logo URL -->
+            </div>
 
-  <h1>Login</h1>
-  <form action="/login" method="post">
-    Email <br> <input type="text" name="email" id=""> <br>
-    Password <br> <input type="text" name="password" id=""> <br>
-    <input type="submit" name="" id="" value="Login">
-  </form>
+        </div>
+        <div class="w-1/2 ml-10">
+            <form class="lorafonts" action="/login" method="post">
+                <div class="space-y-4">
+                    <input name="email" type="text" placeholder=""
+                        class="w-full px-3 py-2 border text-slate-950 bg-transparent border-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600">
+                    <label class="font-semibold mt-1">Email atau Username</label>
 
+                    <input name="password" type="password" placeholder=""
+                        class="w-full px-3 py-2 border text-slate-950 bg-transparent border-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600">
+                    <label class="font-semibold mt-1">Password</label>
+                </div>
+                <div class="mt-6">
+                    <button type="submit"
+                        class="w-full py-2 px-4 border border-transparent rounded-md text-sm font-medium bg-amber-400 hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-amber-500">
+                        Continue
+                    </button>
+                </div>
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-900"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500"></span>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="/register" class="text-sm text-black-600 hover:underline">Belum punya akun? Mulai
+                        mendaftar!</a>
+                </div>
+            </form>
+        </div>
 
+    </div>
 
+    <script>
+        new TypeIt("#hero", {
+            strings: ["Buah Pikir", "Pengalaman", "Dan lainnya!",],
+            speed: 50,
+            waitUntilVisible: true,
+        }).go();
+    </script>
 </body>
 
 </html>
