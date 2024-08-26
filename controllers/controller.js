@@ -141,7 +141,8 @@ class Controller {
         };
       }
 
-      let post = await Post.findAll(option);
+      const posts = await Post.findAll(option);
+      const post = posts.map((el) => el.get({ plain: true }));
 
       const user = await User.findByPk(id);
       res.render("Timeline", { user, post, Post });
@@ -153,18 +154,16 @@ class Controller {
   static async userProfile(req, res) {
     try {
       let id = req.session.user;
-      const edit = await User.findByPk(id);
-      const profile = await Profile.findOne({
-        where: {
-          UserId: id,
-        },
-      });
+      // const edit = await User.findByPk(id);
+      const user = await User.findByPk(id);
+      // console.log(user, "<<<<");
       const post = await sequelize.query(`SELECT *
       FROM "Profiles" p
       JOIN "Posts" p2 ON p2."ProfileId" = p.id 
       WHERE p."UserId" = ${id} ORDER BY p."createdAt" ASC `);
-      if (profile) {
-        res.render("UserProfile", { edit, profile, Post, post });
+
+      if (user) {
+        res.render("UserProfile", { user, post, Post });
       } else {
         res.redirect(`/user/${id}}/profile/setup`);
       }

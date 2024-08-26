@@ -1,0 +1,42 @@
+<header class="bg-white border-b border-gray-300">
+  <div class="container mx-auto flex justify-between items-center p-4">
+    <div class="flex items-center space-x-4">
+      <a href="/home">
+        <div class="text-4xl logostyle">Vritta</div>
+      </a>
+      <form action="/home" method="get">
+        <input type="search" placeholder="Search" class="border rounded-full p-2" name="search">
+      </form>
+    </div>
+    <div class="flex items-center space-x-4">
+      <% if (user) { %>
+        <!-- Determine if post[0] is an instance of Sequelize or a plain object -->
+        <% const profile = post[0].Profile || post[0][0] %>
+        <a href="/post/<%= profile.id %>">
+          <button
+            class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
+            Write
+          </button>
+        </a>
+        <div class="relative inline-block text-left">
+          <div id="dropdownToggle" class="w-8 h-8 rounded-full cursor-pointer">
+            <img class="w-8 h-8 rounded-full" src="<%= profile.profilePict %>" alt="">
+          </div>
+          <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden" id="dropdownMenu">
+            <a href="/user/<%= user.id %>/profile"
+              class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex items-center">👤 Profile</a>
+            <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex items-center">🚪
+              Sign Out</a>
+          </div>
+        </div>
+      <% } else { %>
+        <a href="/login">
+          <button
+            class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
+            Sign In
+          </button>
+        </a>
+      <% } %>
+    </div>
+  </div>
+</header>
