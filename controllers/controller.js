@@ -260,7 +260,6 @@ class Controller {
           },
         },
       });
-      console.log(post.Profile.User.id, "<<<<");
       if (!post) {
         throw new Error("Post not found");
       }
@@ -271,7 +270,9 @@ class Controller {
         },
       });
 
-      res.render("PostDetail", { post, Post, likeCount });
+      const user = await User.findByPk(id);
+
+      res.render("PostDetail", { post, Post, likeCount, user });
     } catch (error) {
       res.send(error);
     }

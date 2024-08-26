@@ -10,11 +10,10 @@
     </div>
     <div class="flex items-center space-x-4">
       <% if (user) { %>
-        <!-- Determine if post[0] is an instance of Sequelize or a plain object -->
-        <% const profile = post[0].Profile || post[0][0] %>
+        <!-- Determine the profile data based on available structures -->
+        <% const profile = post.Profile || (post[0] && post[0].Profile) || post[0]; %>
         <a href="/post/<%= profile.id %>">
-          <button
-            class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
+          <button class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
             Write
           </button>
         </a>
@@ -31,8 +30,7 @@
         </div>
       <% } else { %>
         <a href="/login">
-          <button
-            class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
+          <button class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
             Sign In
           </button>
         </a>

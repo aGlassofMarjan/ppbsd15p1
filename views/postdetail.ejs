@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medium-style Article</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* General styles */
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
         .lorafonts {
@@ -15,7 +15,7 @@
             font-style: normal;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200..800;1,200..800&display=swap');
 
         .logostyle {
             font-family: "Spectral", serif;
@@ -24,457 +24,152 @@
             letter-spacing: -1.3px;
         }
 
-        body {
-            font-family: sohne, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            /* background-color: #f3f4f6; */
-            margin: 0;
-        }
-
-        .container {
-            max-width: 100vh;
-            margin: 0 auto;
-        }
-
-        /* Header styles */
-        .header {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 16px 0;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-        }
-
-        .search-input {
-            border: 1px solid #ccc;
-            padding: 8px;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-right: 16px;
-        }
-
-        .write-button {
-    outline: solid 1px #000;
-    color: #000000;
-    padding: 8px 16px;
-    font-size: 16px;
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    margin-right: 16px;
-}
-
-.write-button:hover{
-    background-color: #000;
-    color: #fff;
-
-}
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #ccc;
-            border-radius: 50%;
-        }
-
-        /* Main content styles */
-        .main-container {
-            display: flex;
-            margin-top: 16px;
-            padding: 0 16px;
-            /* margin-left: 9vh;
-    margin-right: 9vh; */
-        }
-
-        .content {
-            flex: 1;
-            background-color: #fff;
-            padding: 32px;
-            border-radius: 8px;
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-        }
-
-        /* Article styles */
-        .article {
-            margin-bottom: 16px;
-        }
-
-        .article-title {
-            font-size: 42px;
-            font-style: normal;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -0.020em;
-            color: #242424;
-        }
-
-        .article-intro {
-            font-size: 24px;
-            color: #555;
-            margin-bottom: 16px;
-        }
-
-        .author-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .author-avatar {
-            width: 40px;
-            height: 40px;
-            /* background-color: #ccc; */
-            border-radius: 50%;
-            margin-right: 16px;
-        }
-
-        .author-name {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .publication-info {
-            font-size: 12px;
-            color: #777;
-        }
-
-        .article-actions {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-            color: #555;
-            padding: 20px;
-            border-top: solid 1px rgb(242, 242, 242);
-            border-bottom: solid 1px rgb(242, 242, 242);
-        }
-
-        .action {
-            display: flex;
-            align-items: center;
-            margin-right: 16px;
-        }
-
-        .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-        }
-
-        .article-paragraph {
-            font-size: 20px;
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        /* Category slider styles */
-        .category-slider {
-            display: flex;
-            overflow-x: auto;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-        }
-
-        .category-slider::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-item {
-            flex: 0 0 auto;
-            background-color: #e5e7eb;
-            border-radius: 16px;
-            padding: 8px 16px;
-            margin-right: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #555;
-            white-space: nowrap;
-        }
-
-        .category-item:hover {
-            background-color: #d1d5db;
-        }
-
-
-        /* Author Section Styles */
-        .author-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-        }
-
-        .author-profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .follow-button {
-            background-color: #1a8917;
-            color: #fff;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 20px;
-        }
-
-        .articles-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .article-card {
-            width: 40%;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .article-card-image {
-            width: 100%;
-            height: 150px;
-            background-color: #ccc;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .article-card h4 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .article-card p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .article-card-info {
-            font-size: 12px;
-            color: #777;
-        }
-
-        /* See All Links Styles */
-        .see-all-links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .see-all-links a {
-            color: #1a8917;
-            text-decoration: none;
-        }
-
-        /* Recommended Section Styles */
-        .recommended-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .recommended-section h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        /* Sidebar Styles */
-        .sidebar section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .sidebar h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar li {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        .topics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .topic {
-            background-color: #e5e7eb;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .follow-suggestions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .suggestion {
-            display: flex;
-            align-items: center;
-        }
-
-        .suggestion-avatar {
-            width: 36px;
-            height: 36px;
-            background-color: #ccc;
-            border-radius: 50%;
-            margin-right: 10px;
+        .category-button {
+            @apply flex-shrink-0 px-4 py-2 rounded-full bg-gray-200 text-sm whitespace-nowrap;
         }
     </style>
 </head>
 
-<body>
-    <header class="header">
-        <div class=" header-container">
-            <a href="" style="text-decoration: none; color: black;">
-                <div class="logostyle" style="margin-left: 5vh;">
-                    Vritta
-                </div>
-            </a>
-            <div class="header-actions" style="margin-right: 5vh;">
-                <a href="/home"><button class="write-button">Back</button></a> 
-            </div>
-        </div>
-    </header>
-    <div class="container main-container">
+<body class="font-sans bg-white">
+    <!-- Navbar -->
+    <%- include('partials/nav', { user: user, post: post }) %>
+
+    <div class="flex justify-center items-center mt-8">
         <!-- Main Content -->
-        <main class="content">
+        <main class="w-full md:w-2/3 bg-white p-8">
             <!-- Article -->
-            <article class="article">
-                <h1 class="article-title"><%= post.title %></h1>
-                <!-- <p class="article-intro"></p> -->
-                <div class="author-info">
-                    <a href="/user/<%= post.Profile.User.id %>/profile">
-                    <!-- <div class="author-avatar"></div> -->
-                    <img src="<%= post.Profile.profilePict %>" class="author-avatar" srcset="">
-                    <div>
-                        <p class="author-name"><%= post.Profile.fullName %></p>
-                        <p class="publication-info">Published in Towards Data Science · 8 min read · <%= Post.time(post.createdAt)  %></p>
-                    </div>
-                </div>
-                <div class="article-actions">
-                    <div class="action">
+            <article class="mb-8">
+                <h1 class="font-bold mb-4 text-gray-900 text-left" style='font-size: 42px; font-weight:700 ;'><%= post.title %></h1>
+                <div class="flex items-start justify-between mb-6">
+                    <a href="/user/<%= post.Profile.User.id %>/profile" class="flex items-center">
+                        <img src="<%= post.Profile.profilePict %>" class="w-10 h-10 rounded-full mr-4" alt="Author Avatar">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-700"><%= post.Profile.fullName %></p>
+                            <p class="text-xs text-gray-500">Published in Towards Data Science · 8 min read · <%= Post.time(post.createdAt) %></p>
+                        </div>
                     </a>
-                        <!-- tanda like -->
-                        <a href="/like/<%= post.id %>">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
-                                </path>
+                    <% if (user.id === post.Profile.User.id) { %>
+                    <div class="relative">
+                        <button id="articleMenuButton" class="text-gray-700 hover:text-gray-900 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v.01M12 12v.01M12 18v.01" />
                             </svg>
-                        </a>
-                            <span><%= likeCount %></span>
+                        </button>
+                        <div id="articleDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                            <a href="/post/<%= post.id %>/edit" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Post</a>
+                            <a href="/post/<%= post.id %>/delete" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete Post</a>
                         </div>
                     </div>
-                    <!-- Post Content -->
-                    <div class="align-center justify-center text-center">
-                        <img src="<%- post.imgURL %>" alt="">
+                    <% } %>
+                </div>
+                <!-- Like Button Section -->
+                <div class="flex items-center space-x-2 border-t border-b py-4 mb-4">
+                    <a href="/like/<%= post.id %>" class="flex items-center text-gray-600 hover:text-red-500 transition-colors duration-200">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="<%= likeCount > 0 ? 'red' : 'currentColor' %>" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                        </svg>
+                    </a>
+                    <span class="text-gray-700"><%= likeCount %></span>
+                </div>
 
-                    </div>
-                    <p class="article-paragraph lorafonts"><%- post.content %></p>
-                </article>
-            <!-- Author Section -->
-            <section class="author-section">
-                <div class="author-profile">
-                    <div class="author-avatar"></div>
-                    <div>
-                        <h3>Written by <%= post.Profile.fullName %></h3>
-                        <p>Writer for Towards Data Science<br>AI/ML research @ Intel Labs; Mom; Musician
-                        </p>
-                        <button class="follow-button">View Profile</button>
-                    </div>
+                <div class="mb-6">
+                    <% if (post.imgURL) { %>
+                        <img src="<%- post.imgURL %>" alt="Article Image" class="w-full h-64 object-cover rounded-lg mx-auto">
+                    <% } %>
                 </div>
-                <h3>More from <%= post.Profile.fullName %> and Towards Data Science</h3>
-                <div class="articles-grid">
-                    <!-- Example article cards -->
-                    <div class="article-card">
-                        <div class="article-card-image"></div>
-                        <h4>Long-form video representation learning (Part 2: Video as sparse...)</h4>
-                        <p>We explore novel video representations methods that are equipped with long-form...</p>
-                        <p class="article-card-info">Subarna Tripathi in Towards Data Science · 6 min read · May 15,
-                            2024</p>
-                    </div>
-                    <div class="article-card">
-                        <div class="article-card-image"></div>
-                        <h4>Python One Billion Row Challenge — From 10 Minutes to 4 Seconds</h4>
-                        <p>The one billion row challenge is exploding in popularity. How well does Python stack up?</p>
-                        <p class="article-card-info">Dario Radečić in Towards Data Science · 10 min read · May 4, 2024
-                        </p>
-                    </div>
-                    <div class="article-card">
-                        <div class="article-card-image"></div>
-                        <h4>Kolmogorov-Arnold Networks: the latest advance in Neural Network...</h4>
-                        <p>The new type of network that is making waves in the ML world.</p>
-                        <p class="article-card-info">Theo Wolf in Towards Data Science · 9 min read · May 13, 2024</p>
-                    </div>
-                    <div class="article-card">
-                        <div class="article-card-image"></div>
-                        <h4>Long-form video representation learning (Part 1: Video as graphs)</h4>
-                        <p>We explore novel video representation methods that are equipped with long-form...</p>
-                        <p class="article-card-info">Subarna Tripathi in Towards Data Science · 10 min read · May 15,
-                            2024</p>
-                    </div>
-                </div>
-                <div class="see-all-links">
-                    <a href="#">See all from Subarna Tripathi</a>
-                    <a href="#">See all from Towards Data Science</a>
-                </div>
-            </section>
-
-            <!-- Recommended Section -->
-            <section class="recommended-section">
-                <h3>Recommended from Medium</h3>
-                <div class="articles-grid">
-                    <!-- Example recommended articles -->
-                    <div class="article-card">
-                        <div class="article-card-image"></div>
-                        <h4>Long-form video representation learning (Part 2: Video as sparse...)</h4>
-                        <p>We explore novel video representations methods that are equipped with long-form...</p>
-                        <p class="article-card-info">Subarna Tripathi in Towards Data Science · 6 min read · May 15,
-                            2024</p>
-                    </div>
-                    <div class="article-card">
-                        <div class="article-card-image"></div>
-                        <h4>Python Code Formatter — Black or Ruff?</h4>
-                        <p>Understand how code formatting works in Python</p>
-                        <p class="article-card-info">Yannick Andrade in Python in Plain English · 4 min read · 5 days
-                            ago</p>
-                    </div>
-                </div>
-            </section>
+                <p class="text-lg text-gray-800 leading-relaxed text-center"><%- post.content %></p>
+            </article>
         </main>
-
-        <!-- Sidebar -->
-
     </div>
+
+    <!-- Gray Background Section -->
+    <div class="bg-[rgb(249,249,249)] w-full">
+        <div class="flex justify-center items-center">
+            <div class="w-full md:w-2/3 p-8">
+                <!-- Author Section -->
+                <section class="mb-8">
+                    <div class="flex items-start justify-start mb-6 flex-col">
+                        <img src="<%= post.Profile.profilePict %>" class="w-12 h-12 rounded-full mr-4" alt="Author Avatar">
+                        <div class="text-left">
+                            <h3 class="text-xl font-semibold">Written by <%= post.Profile.fullName %></h3>
+                            <p class="text-gray-600">Writer for Towards Data Science<br>AI/ML research @ Intel Labs; Mom; Musician</p>
+                            <a href="/user/<%= post.Profile.User.id %>/profile">
+                                <button class="mt-2 bg-green-600 text-white px-4 py-2 rounded-full">View Profile</button>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">More from <%= post.Profile.fullName %> and Towards Data Science</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Example article cards -->
+                        <div class="bg-gray-100 p-4 ">
+                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
+                            <h4 class="text-lg font-semibold mb-2">Long-form video representation learning (Part 2: Video as sparse...)</h4>
+                            <p class="text-gray-600 text-sm">We explore novel video representations methods that are equipped with long-form...</p>
+                            <p class="text-xs text-gray-500">Subarna Tripathi in Towards Data Science · 6 min read · May 15, 2024</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 ">
+                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
+                            <h4 class="text-lg font-semibold mb-2">Python One Billion Row Challenge — From 10 Minutes to 4 Seconds</h4>
+                            <p class="text-gray-600 text-sm">The one billion row challenge is exploding in popularity. How well does Python stack up?</p>
+                            <p class="text-xs text-gray-500">Dario Radečić in Towards Data Science · 10 min read · May 4, 2024</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <a href="#" class="text-green-600">See all from Subarna Tripathi</a>
+                        <a href="#" class="text-green-600">See all from Towards Data Science</a>
+                    </div>
+                </section>
+
+                <!-- Recommended Section -->
+                <section class="p-6 ">
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Recommended from Medium</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Example recommended articles -->
+                        <div class="bg-gray-100 p-4 ">
+                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
+                            <h4 class="text-lg font-semibold mb-2">Long-form video representation learning (Part 2: Video as sparse...)</h4>
+                            <p class="text-gray-600 text-sm">We explore novel video representations methods that are equipped with long-form...</p>
+                            <p class="text-xs text-gray-500">Subarna Tripathi in Towards Data Science · 6 min read · May 15, 2024</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 ">
+                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
+                            <h4 class="text-lg font-semibold mb-2">Python Code Formatter — Black or Ruff?</h4>
+                            <p class="text-gray-600 text-sm">Understand how code formatting works in Python</p>
+                            <p class="text-xs text-gray-500">Yannick Andrade in Python in Plain English · 4 min read · 5 days ago</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     document.addEventListener('DOMContentLoaded', () => {
+    const articleMenuButton = document.getElementById('articleMenuButton');
+    const articleDropdownMenu = document.getElementById('articleDropdownMenu');
+    const dropdownToggle = document.getElementById('dropdownToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    articleMenuButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        articleDropdownMenu.classList.toggle('hidden');
+    });
+
+    dropdownToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        dropdownMenu.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', (event) => {
+        if (!event.target.closest('#articleMenuButton')) {
+            articleDropdownMenu.classList.add('hidden');
+        }
+        if (!event.target.closest('#dropdownToggle')) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+});
+    </script>
 </body>
 
 </html>
