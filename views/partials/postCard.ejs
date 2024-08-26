@@ -13,10 +13,9 @@
           <div class="overflow-hidden h-20">
               <p class="lorafonts"><%- el.content %></p>
           </div>
-          <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs">Technology</button>
+          <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs"><%= (el.Category? el.Category.name : el.categoryName) %></button>
       </div>
 
-      <!-- Conditionally render the image only if imgURL exists -->
       <% if (el.imgURL) { %>
       <div class="ml-10 min-w-[180px]">
           <img class="w-60 h-40 object-cover" src="<%= el.imgURL %>"></img>

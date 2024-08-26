@@ -90,12 +90,14 @@ class UserController {
       });
 
       const post = await sequelize.query(
-        `SELECT *
-         FROM "Profiles" p
-         JOIN "Posts" p2 ON p2."ProfileId" = p.id 
-         WHERE p."UserId" = ${id} 
-         ORDER BY p."createdAt" ASC`
+        `SELECT p.*, p2.*, c."name" as "categoryName"
+     FROM "Profiles" p
+     JOIN "Posts" p2 ON p2."ProfileId" = p.id
+     JOIN "Categories" c ON p2."CategoryId" = c.id
+     WHERE p."UserId" = ${id}
+     ORDER BY p2."createdAt" ASC`
       );
+      console.log(post);
 
       if (user) {
         res.render("UserProfile", { user, post, Post });
@@ -162,14 +164,14 @@ class UserController {
   static async handlePost(req, res) {
     try {
       const ProfileId = req.params.profileId;
-      const { title, imgURL, content, categoryId } = req.body; // Assuming categoryId is the ID of the category
+      const { title, imgURL, content, categoryId } = req.body;
 
       await Post.create({
         title,
         imgURL,
         content,
         ProfileId,
-        CategoryId: categoryId, // Use CategoryId to match the field in the model
+        CategoryId: categoryId,
       });
 
       res.redirect("/home");
@@ -288,7 +290,6 @@ class UserController {
       const postId = req.params.postId;
       const userId = req.session.user;
 
-      // Find the post and include the profile to check ownership
       const post = await Post.findOne({
         where: { id: postId },
         include: {
@@ -297,7 +298,6 @@ class UserController {
         },
       });
 
-      // Delete associated interactions first
       await Interaction.destroy({
         where: {
           PostId: postId,

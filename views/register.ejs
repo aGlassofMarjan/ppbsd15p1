@@ -10,7 +10,6 @@
     <style>
         body {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./bookvector2.jpg');
-            /* Replace with your background image URL */
             background-size: cover;
             background-position: center;
         }
@@ -36,7 +35,7 @@
             </div>
             
             <% if (errors) { %>
-                <!-- <div style="border: 1px solid rgb(255, 0, 0); background-color: rgb(227, 142, 142)"> -->
+        
                     <div class="bg-red-200 text-white p-3 rounded shadow-md justify-center align-center text-center"
                     style="outline: solid 2px red">
                   <% errors.forEach(msg => { %>
@@ -44,12 +43,6 @@
                   <% }) %>
                 </div>
               <% } %>
-
-            <!-- <div class="bg-red-200 text-white p-3 rounded shadow-md justify-center align-center text-center"
-                    style="outline: solid 2px red">
-                    <p style="color: red;">Nama tidak boleh kosong</p>
-                    <p style="color: red;">Nama tidak boleh kosong</p>
-                </div> -->
 
         </div>
         <div class="w-1/2 ml-10">
