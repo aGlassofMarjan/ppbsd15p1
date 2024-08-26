@@ -1,25 +1,34 @@
 <a href="/post/<%= el.id %>/detail">
-  <div class="bg-white p-4 mb-4 flex justify-between border-b border-gray-300">
-      <div>
-          <div class="flex items-center mb-2">
-              <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
-                  <img src="<%= (el.Profile ? el.Profile.profilePict : el.profilePict) %>" alt="" class="rounded-full">
-              </div>
-              <p class="text-gray-500">
-                  <b><%= (el.Profile ? el.Profile.fullName : el.fullName) %></b> · <%= Post.time(el.createdAt) %> · 6 min read
-              </p>
-          </div>
-          <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.title %></h2>
-          <div class="overflow-hidden h-20">
-              <p class="lorafonts"><%- el.content %></p>
-          </div>
-          <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs"><%= (el.Category? el.Category.name : el.categoryName) %></button>
-      </div>
-
-      <% if (el.imgURL) { %>
-      <div class="ml-10 min-w-[180px]">
-          <img class="w-60 h-40 object-cover" src="<%= el.imgURL %>"></img>
-      </div>
-      <% } %>
-  </div>
-</a>
+    <div class="bg-white p-4 mb-4 flex justify-between border-b border-gray-300">
+        <div>
+            <div class="flex items-center mb-2">
+                <div class="w-6 h-6 rounded-full bg-gray-400 mr-1">
+                    <img src="<%= (el.Profile ? el.Profile.profilePict : el.profilePict) %>" alt="" class="rounded-full">
+                </div>
+                <p class="text-gray-500">
+                    <b><%= (el.Profile ? el.Profile.fullName : el.fullName) %></b> · <%= Post.time(el.createdAt) %> · 6 min read
+                </p>
+            </div>
+            <h2 class="text-xl font-bold mb-1 lorafonts"><%= el.title %></h2>
+            <div style="
+              display: -webkit-box; 
+              -webkit-line-clamp: 3; 
+              -webkit-box-orient: vertical; 
+              overflow: hidden; 
+              text-overflow: ellipsis; 
+              height: 4.5em; 
+              line-height: 1.5em; 
+            ">
+                <p class="lorafonts"><%- el.content %></p>
+            </div>
+            <button class="my-3 bg-gray-200 rounded-full px-3 py-1 text-xs"><%= (el.Category? el.Category.name : el.categoryName) %></button>
+        </div>
+  
+        <% if (el.imgURL) { %>
+        <div class="ml-10 min-w-[180px]">
+            <img class="w-60 h-40 object-cover" src="<%= el.imgURL %>"></img>
+        </div>
+        <% } %>
+    </div>
+  </a>
+  

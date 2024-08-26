@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medium-style Page</title>
+    <title>Vritta</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
         .lorafonts {
@@ -55,19 +57,26 @@
                 <h2 class="font-semibold mb-4">Your Latest Release</h2>
                 <ul class="space-y-2 overflow-y-auto h-72">
                     <% post.forEach(el => { %>
-                    <li class="flex items-center">
-                        <img src="<%= el.imgURL %>" alt="" class="w-10 h-10 rounded-full mr-3">
-                        <div>
-                            <h3 class="font-semibold text-sm"><%= el.title %></h3>
-                            <p class="text-gray-500 text-xs overflow-hidden h-6"><%- el.content %></p>
+                    <li class="flex items-start p-2 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <img src="<%= el.imgURL %>" alt="" class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-lg mb-1"><%= el.title %></h3>
+                            <p class="text-gray-500 text-sm overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; text-overflow: ellipsis;">
+                                <%- el.content %>
+                            </p>
+                            <a href="/post/<%= el.id %>/detail" class="text-blue-500 text-xs mt-1 inline-block">
+                                Read More
+                            </a>
                         </div>
                     </li>
                     <% }) %>
                 </ul>
+                
+                
                 <h2 class="font-semibold mt-6 mb-4">Recommended topics</h2>
                 <div class="flex flex-wrap gap-2">
                     <% categories.forEach(category => { %>
-                        <button class="bg-gray-200 rounded-full px-3 py-1 text-xs"
+                        <button class="bg-gray-200 rounded-full px-3 py-1 text-l"
                             onclick= <%= user ? `window.location.href='?category=${encodeURIComponent(category.name)}'` : 'window.location.href=\'/login\'' %>>
                             <%= category.name %>
                         </button>

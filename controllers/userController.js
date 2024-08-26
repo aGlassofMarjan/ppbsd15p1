@@ -88,16 +88,19 @@ class UserController {
           },
         ],
       });
+      if (!user.Profile) {
+        return res.redirect(`/user/${id}/profile/setup`);
+      }
 
       const post = await sequelize.query(
         `SELECT p.*, p2.*, c."name" as "categoryName"
-     FROM "Profiles" p
-     JOIN "Posts" p2 ON p2."ProfileId" = p.id
-     JOIN "Categories" c ON p2."CategoryId" = c.id
-     WHERE p."UserId" = ${id}
-     ORDER BY p2."createdAt" ASC`
+        FROM "Profiles" p
+        JOIN "Posts" p2 ON p2."ProfileId" = p.id
+        JOIN "Categories" c ON p2."CategoryId" = c.id
+        WHERE p."UserId" = ${id}
+        ORDER BY p2."createdAt" ASC`
       );
-      console.log(post);
+      // console.log(post, "<<<<<");
 
       if (user) {
         res.render("UserProfile", { user, post, Post });
@@ -113,8 +116,17 @@ class UserController {
     try {
       let id = req.session.user;
       let user = await User.findByPk(id);
+      function reversedDate(date) {
+        if (!date) return "";
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
 
-      res.render("CompleteYourProfile", { user });
+        return `${year}-${month}-${day}`;
+      }
+
+      res.render("CompleteYourProfile", { user, reversedDate });
     } catch (error) {
       res.send(error);
     }
@@ -147,15 +159,17 @@ class UserController {
       const profile = await Profile.findOne({
         where: { UserId: id },
       });
-      if (req.session.status === false) {
-        res.redirect("/suspended");
-      } else {
-        if (profile) {
-          res.render("CreatePost", { profile });
-        } else {
-          res.redirect(`/user/${id}/profile/setup`);
-        }
+
+      if (!profile) {
+        // If no profile exists, redirect to profile setup
+        return res.redirect(`/user/${id}/profile/setup`);
       }
+
+      if (req.session.status === false) {
+        return res.redirect("/suspended");
+      }
+
+      res.render("CreatePost", { profile });
     } catch (error) {
       res.send(error);
     }

@@ -4,26 +4,29 @@
       <a href="/home">
         <div class="text-4xl logostyle">Vritta</div>
       </a>
-      <form action="/home" method="get">
-        <input type="search" placeholder="Search" class="border rounded-full p-2" name="search">
-      </form>
+      <form action="/home" method="get" class="relative">
+        <input type="search" placeholder="Search" name="search"
+               class="bg-gray-200 text-gray-700 border-none rounded-full py-2 px-4 pl-10 pr-4 w-full placeholder-gray-600 focus:outline-none">
+        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
+    </form>
     </div>
     <div class="flex items-center space-x-4">
-      <% if (user && user.Profile) { %>
-        <a href="/post/<%= user.Profile.id %>">
+      <% if (user) { %>
+        <a href="<%= user.Profile && user.Profile.id ? '/post/' + user.Profile.id : '/user/' + user.id + '/profile/setup' %>">
           <button class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
             Write
           </button>
         </a>
         <div class="relative inline-block text-left">
           <div id="dropdownToggle" class="w-8 h-8 rounded-full cursor-pointer">
-            <img class="w-8 h-8 rounded-full" src="<%= user.Profile.profilePict %>" alt="">
+            <img class="w-8 h-8 rounded-full" 
+                 src="<%= user.Profile && user.Profile.profilePict ? user.Profile.profilePict : 'https://i.pinimg.com/564x/77/2a/a7/772aa709423494dba2e436c8df1fe643.jpg' %>" 
+                 alt="User Profile Picture">
           </div>
           <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden" id="dropdownMenu">
             <a href="/user/<%= user.id %>/profile"
-              class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex items-center">👤 Profile</a>
-            <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex items-center">🚪
-              Sign Out</a>
+               class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex items-center">👤 Profile</a>
+            <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 flex items-center">🚪 Sign Out</a>
           </div>
         </div>
       <% } else { %>
