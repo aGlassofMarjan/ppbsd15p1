@@ -12,13 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    const data = JSON.parse(await readFile("./data/post.json", "utf-8"));
-    const post = data.map((el) => {
+    const data = JSON.parse(await readFile("./data/profile.json", "utf-8"));
+    const profile = data.map((el) => {
       el.createdAt = new Date();
       el.updatedAt = new Date();
       return el;
     });
-    await queryInterface.bulkInsert("Posts", post, {});
+    await queryInterface.bulkInsert("Profiles", profile, {});
   },
 
   async down(queryInterface, Sequelize) {
@@ -28,7 +28,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete("Posts", null, {
+    await queryInterface.bulkDelete("Profiles", null, {
       truncate: true,
       restartIdentity: true,
     });

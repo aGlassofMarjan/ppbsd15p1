@@ -1,0 +1,20 @@
+[
+  {
+    "gender": "male",
+    "birthdate": "1980-01-01",
+    "fullName": "John Doe",
+    "profilePict": "https://i.pinimg.com/564x/87/07/12/87071256a11da8b20994d2c2b2df173c.jpg",
+    "nickName": "John",
+    "username": "johndoe",
+    "UserId": 1
+  },
+  {
+    "gender": "female",
+    "birthdate": "1990-02-02",
+    "fullName": "Jane Smith",
+    "profilePict": "https://i.pinimg.com/564x/87/07/12/87071256a11da8b20994d2c2b2df173c.jpg",
+    "nickName": "Jane",
+    "username": "janesmith",
+    "UserId": 2
+  }
+]

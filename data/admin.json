@@ -1,11 +1,20 @@
 [
-{
-  "fullName": "John Doe",
-  "email": "john.doe@example.com",
-  "password": "securepassword123",
-  "isAdmin": true,
-  "status": true,
-  "gender": "male",
-  "birthdate": "1980-01-01"
-}
+  {
+    "fullName": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "12345",
+    "isAdmin": true,
+    "status": true,
+    "gender": "male",
+    "birthdate": "1980-01-01"
+  },
+  {
+    "fullName": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "password": "12345",
+    "isAdmin": false,
+    "status": true,
+    "gender": "female",
+    "birthdate": "1990-02-02"
+  }
 ]

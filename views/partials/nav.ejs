@@ -9,17 +9,15 @@
       </form>
     </div>
     <div class="flex items-center space-x-4">
-      <% if (user) { %>
-        <!-- Determine the profile data based on available structures -->
-        <% const profile = post.Profile || (post[0] && post[0].Profile) || post[0]; %>
-        <a href="/post/<%= profile.id %>">
+      <% if (user && user.Profile) { %>
+        <a href="/post/<%= user.Profile.id %>">
           <button class="bg-white px-4 py-2 rounded-full border border-black hover:bg-black hover:text-white">
             Write
           </button>
         </a>
         <div class="relative inline-block text-left">
           <div id="dropdownToggle" class="w-8 h-8 rounded-full cursor-pointer">
-            <img class="w-8 h-8 rounded-full" src="<%= profile.profilePict %>" alt="">
+            <img class="w-8 h-8 rounded-full" src="<%= user.Profile.profilePict %>" alt="">
           </div>
           <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden" id="dropdownMenu">
             <a href="/user/<%= user.id %>/profile"
