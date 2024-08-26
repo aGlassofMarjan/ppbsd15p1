@@ -1,7 +1,13 @@
-const { User, Profile, Post, Interaction, sequelize } = require("../models");
-const bcrypt = require("bcryptjs");
-const { Op } = require("sequelize");
+const {
+  User,
+  Profile,
+  Post,
+  Interaction,
+  Category,
+  sequelize,
+} = require("../models");
 const { compare } = require("../utils/bcrypt");
+const { Op } = require("sequelize");
 
 class UserController {
   static async registerForm(req, res) {
@@ -72,7 +78,6 @@ class UserController {
     req.session.destroy((err) => {
       if (err) console.log(err);
       else {
-        console.log("berhasil logout");
         res.redirect("/login");
       }
     });
@@ -100,7 +105,6 @@ class UserController {
         WHERE p."UserId" = ${id}
         ORDER BY p2."createdAt" ASC`
       );
-      // console.log(post, "<<<<<");
 
       if (user) {
         res.render("UserProfile", { user, post, Post });
@@ -108,6 +112,7 @@ class UserController {
         res.redirect(`/user/${id}/profile/setup`);
       }
     } catch (error) {
+      console.log(error);
       res.send(error);
     }
   }
@@ -161,7 +166,6 @@ class UserController {
       });
 
       if (!profile) {
-        // If no profile exists, redirect to profile setup
         return res.redirect(`/user/${id}/profile/setup`);
       }
 
@@ -200,20 +204,29 @@ class UserController {
 
       const post = await Post.findOne({
         where: { id: postId },
-        include: {
-          model: Profile,
-          include: {
-            model: User,
+        include: [
+          {
+            model: Profile,
+            include: {
+              model: User,
+            },
           },
-        },
+          {
+            model: Category,
+          },
+        ],
       });
+
       if (!post) {
         throw new Error("Post not found");
       }
+
+      // Fetch like count
       const likeCount = await Interaction.count({
         where: { PostId: postId, like: true },
       });
 
+      // Fetch user with profile
       const user = await User.findByPk(id, {
         include: [
           {
@@ -222,8 +235,48 @@ class UserController {
         ],
       });
 
-      res.render("PostDetail", { post, Post, likeCount, user });
+      // Fetch posts by the same profile
+      const relatedPosts = await Post.findAll({
+        where: {
+          ProfileId: post.ProfileId,
+          id: { [Op.ne]: post.id },
+        },
+        include: [
+          {
+            model: Category,
+          },
+          {
+            model: Profile,
+          },
+        ],
+        order: sequelize.literal("RANDOM()"),
+        limit: 2,
+      });
+
+      const allPosts = await Post.findAll({
+        include: [
+          {
+            model: Category,
+          },
+          {
+            model: Profile,
+          },
+        ],
+        order: sequelize.literal("RANDOM()"),
+        limit: 2,
+      });
+
+      // Render the page
+      res.render("PostDetail", {
+        post,
+        Post,
+        likeCount,
+        user,
+        relatedPosts,
+        allPosts,
+      });
     } catch (error) {
+      console.error("Error:", error);
       res.send(error);
     }
   }

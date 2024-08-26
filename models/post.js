@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.Interaction);
       this.belongsTo(models.Profile);
-      this.belongsTo(models.Category); // Add this line
+      this.belongsTo(models.Category, { foreignKey: "CategoryId" }); // Add this line
       this.belongsToMany(models.Profile, {
         through: models.Interaction,
       });

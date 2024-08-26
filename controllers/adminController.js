@@ -3,10 +3,10 @@ const { User, Post } = require("../models");
 class adminController {
   static async adminDashboardUser(req, res) {
     try {
-      const users = await User.findAll({
+      const user = await User.findAll({
         where: { isAdmin: false },
       });
-      res.render("admindashboard", { users });
+      res.render("admindashboard", { user });
     } catch (error) {
       res.send(error);
     }
@@ -14,10 +14,12 @@ class adminController {
 
   static async adminDashboardPost(req, res) {
     try {
-      const posts = await Post.findAll({
-        include: [{ model: User }],
+      const post = await Post.findAll({
+        // include: [{ model: User }],
       });
-      res.render("adminDashboardPost", { posts });
+
+      console.log(post);
+      res.render("adminDashboardPost", { post });
     } catch (error) {
       res.send(error);
     }

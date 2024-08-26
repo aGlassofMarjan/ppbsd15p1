@@ -34,6 +34,7 @@
 <body class="font-sans bg-white">
     <!-- Navbar -->
     <%- include('partials/nav', { user: user}) %>
+         <!-- <pre><%= JSON.stringify(post, null, 2) %></pre> -->
 
     <div class="flex justify-center items-center mt-8">
         <!-- Main Content -->
@@ -46,7 +47,7 @@
                         <img src="<%= post.Profile.profilePict %>" class="w-10 h-10 rounded-full mr-4" alt="Author Avatar">
                         <div>
                             <p class="text-sm font-semibold text-gray-700"><%= post.Profile.fullName %></p>
-                            <p class="text-xs text-gray-500">Published in Towards Data Science · 8 min read · <%= Post.time(post.createdAt) %></p>
+                            <p class="text-xs text-gray-500">Published in Towards <%= post.Category.name%> · 8 min read · <%= Post.time(post.createdAt) %></p>
                         </div>
                     </a>
                     <% if (user.id === post.Profile.User.id) { %>
@@ -75,8 +76,12 @@
 
                 <div class="mb-6">
                     <% if (post.imgURL) { %>
-                        <img src="<%- post.imgURL %>" alt="Article Image" class="w-full h-64 object-cover rounded-lg mx-auto">
+                        <div class="w-full h-auto">
+                            <img src="<%- post.imgURL %>" alt="Article Image" class="w-full h-auto object-contain rounded-lg mx-auto">
+                        </div>
                     <% } %>
+                    
+                    
                 </div>
                 <p class="text-lg text-gray-800 leading-relaxed text-left"><%- post.content %></p>
             </article>
@@ -94,31 +99,35 @@
                         <div class="text-left">
                             <h3 class="text-xl font-semibold">Written by <%= post.Profile.fullName %></h3>
                             <p class="text-gray-600">Writer for Towards Data Science<br>AI/ML research @ Intel Labs; Mom; Musician</p>
-                            <a href="/user/<%= post.Profile.User.id %>/profile">
+                            <a href="/user/<%= post.Profile.id %>/profile">
                                 <button class="mt-2 bg-green-600 text-white px-4 py-2 rounded-full">View Profile</button>
                             </a>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-4 text-center">More from <%= post.Profile.fullName %> and Towards Data Science</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Example article cards -->
-                        <div class="bg-gray-100 p-4 ">
-                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
-                            <h4 class="text-lg font-semibold mb-2">Long-form video representation learning (Part 2: Video as sparse...)</h4>
-                            <p class="text-gray-600 text-sm">We explore novel video representations methods that are equipped with long-form...</p>
-                            <p class="text-xs text-gray-500">Subarna Tripathi in Towards Data Science · 6 min read · May 15, 2024</p>
-                        </div>
-                        <div class="bg-gray-100 p-4 ">
-                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
-                            <h4 class="text-lg font-semibold mb-2">Python One Billion Row Challenge — From 10 Minutes to 4 Seconds</h4>
-                            <p class="text-gray-600 text-sm">The one billion row challenge is exploding in popularity. How well does Python stack up?</p>
-                            <p class="text-xs text-gray-500">Dario Radečić in Towards Data Science · 10 min read · May 4, 2024</p>
-                        </div>
+                    <div class="mb-8">
+                        <% if (relatedPosts.length > 0) { %>
+                            <h3 class="text-2xl font-semibold mb-6 text-center">More from <%= post.Profile.fullName %></h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Example article cards -->
+                                <% relatedPosts.forEach(el => { %>
+                                    <div class="bg-gray-100 p-4 rounded-lg">
+                                        <% if (el.imgURL) { %>
+                                            <img src="<%= el.imgURL %>" alt="Related Post Image" class="w-full h-40 object-cover rounded-lg mb-4">
+                                        <% } %>
+                                        <div class="flex items-center my-4">
+                                            <img src="<%= el.Profile.profilePict %>" alt="User Avatar" class="w-8 h-8 rounded-full mr-3">
+                                            <p class="text-sm font-semibold text-gray-700"><%= el.Profile.fullName %></p>
+                                        </div>
+                                        <h4 class="text-lg font-semibold mb-2"><%= el.title %></h4>
+                                        <p class="text-gray-600 text-sm"><%- el.content.slice(0, 100) %>...</p>
+                                        <p class="text-xs text-gray-500">Published in Towards <%= el.Category.name %> · <%= Post.time(el.createdAt) %></p>
+                                        <a href="/post/<%= el.id %>/detail" class="text-blue-600 hover:underline">Read more</a>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } %>
                     </div>
-                    <div class="mt-6 flex justify-between">
-                        <a href="#" class="text-green-600">See all from Subarna Tripathi</a>
-                        <a href="#" class="text-green-600">See all from Towards Data Science</a>
-                    </div>
+                    
                 </section>
 
                 <!-- Recommended Section -->
@@ -126,18 +135,21 @@
                     <h3 class="text-2xl font-semibold mb-4 text-center">Recommended from Medium</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Example recommended articles -->
-                        <div class="bg-gray-100 p-4 ">
-                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
-                            <h4 class="text-lg font-semibold mb-2">Long-form video representation learning (Part 2: Video as sparse...)</h4>
-                            <p class="text-gray-600 text-sm">We explore novel video representations methods that are equipped with long-form...</p>
-                            <p class="text-xs text-gray-500">Subarna Tripathi in Towards Data Science · 6 min read · May 15, 2024</p>
-                        </div>
-                        <div class="bg-gray-100 p-4 ">
-                            <div class="h-40 bg-gray-300 rounded-lg mb-4"></div>
-                            <h4 class="text-lg font-semibold mb-2">Python Code Formatter — Black or Ruff?</h4>
-                            <p class="text-gray-600 text-sm">Understand how code formatting works in Python</p>
-                            <p class="text-xs text-gray-500">Yannick Andrade in Python in Plain English · 4 min read · 5 days ago</p>
-                        </div>
+                        <% allPosts.forEach(el=> { %>
+                            <div class="bg-gray-100 p-4">
+                                <% if (el.imgURL) { %>
+                                <img src="<%= el.imgURL %>" alt="Related Post Image" class="w-full h-40 object-cover rounded-lg mb-4">
+                                <% } %>
+                                <div class="flex items-center my-6">
+                                    <img src="<%= el.Profile.profilePict %>" alt="User Avatar" class="w-8 h-8 rounded-full mr-3">
+                                    <p class="text-sm font-semibold text-gray-700"><%= el.Profile.fullName %></p>
+                                </div>
+                                <h4 class="text-lg font-semibold mb-2"><%= el.title %></h4>
+                                <p class="text-gray-600 text-sm"><%- el.content.slice(0, 100) %>...</p>
+                                <p class="text-xs text-gray-500">Published in Towards <%= el.Category.name %> · <%= Post.time(el.createdAt) %></p>
+                                <a href="/post/<%= el.id %>/detail"  class="text-blue-600 hover:underline">Read more</a>
+                            </div>
+                            <% }) %>
                     </div>
                 </section>
             </div>

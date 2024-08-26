@@ -18,7 +18,7 @@ routers.post("/login", isNotLoggedIn, userController.handleLogin);
 routers.get("/admin/user", isAdmin, adminController.adminDashboardUser);
 routers.get("/admin/post", isAdmin, adminController.adminDashboardPost);
 routers.get("/admin/suspend/:userId", isAdmin, adminController.suspend);
-routers.delete("/delete/:postId", adminController.handleDelete);
+routers.get("/delete/:postId", isAdmin, adminController.handleDelete);
 
 routers.use(isLoggedIn);
 
