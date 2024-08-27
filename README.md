@@ -58,5 +58,5 @@ npx sequelize-cli db:seed:all
 Start the application using nodemon to enable auto-reloading during development.
 
 ```bash
-npx nodemon app.jw
+npx nodemon app.js
 ```
