@@ -1,9 +1,72 @@
 [
   {
-    "imgURL": "https://i.pinimg.com/564x/0b/6f/af/0b6faf498a80c50c9bcaf46c58b787e0.jpg",
-    "content": "You may be looking for a new career and stumbled upon cybersecurity and are all excited about it now! That makes me happy to think about. It’s my job now to explain to you how to get started learning...",
-    "title": "How to Learn Cybersecurity at Home",
+    "imgURL": "https://i.pinimg.com/736x/aa/40/34/aa4034a09c3180296c72c96692e5c245.jpg",
+    "content": "Balancing work and family life can be a challenge, but it's essential for maintaining healthy relationships. Here are some tips to ensure you’re giving enough time to both...",
+    "title": "How to Balance Work and Family Life",
     "ProfileId": 2,
     "CategoryId": 1
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/3f/b8/d4/3fb8d4fc28943b6d27a5ab75a71b7166.jpg",
+    "content": "Starting a business is exciting, but it’s crucial to understand the market and your customers. Let’s explore how to identify a profitable niche for your new venture...",
+    "title": "Finding Your Business Niche",
+    "ProfileId": 2,
+    "CategoryId": 2
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/a5/82/79/a58279029147b0ef9e3550a838bb9610.jpg",
+    "content": "Staying healthy doesn't have to be complicated. Simple habits like drinking more water and getting regular exercise can make a huge difference. Here’s how to start...",
+    "title": "Simple Habits for a Healthier Lifestyle",
+    "ProfileId": 2,
+    "CategoryId": 3
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/f9/ec/e6/f9ece60d65f1b205a5df9cd1f72bd1aa.jpg",
+    "content": "Struggling to get through your to-do list? Time-blocking might be the solution. Learn how this productivity method can help you focus and get more done each day...",
+    "title": "Mastering Time-Blocking for Productivity",
+    "ProfileId": 2,
+    "CategoryId": 4
+  },
+  {
+    "imgURL": "https://i.pinimg.com/736x/ab/e1/38/abe13885449b56a818403f649c05ed55.jpg",
+    "content": "In the digital age, effective marketing can make or break your business. Let’s dive into some creative strategies to boost your brand’s visibility online...",
+    "title": "Creative Digital Marketing Strategies",
+    "ProfileId": 4,
+    "CategoryId": 5
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/f4/93/b5/f493b574d491a9cdd4214d14c5b61489.jpg",
+    "content": "Strong relationships are built on trust and communication. Here are some ways to improve your communication skills to strengthen your personal connections...",
+    "title": "Improving Communication in Relationships",
+    "ProfileId": 4,
+    "CategoryId": 6
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/69/12/80/691280d4bb1b90a00f38167208fe5a84.jpg",
+    "content": "Great leaders inspire and motivate. But what are the qualities that set them apart? Let’s explore the essential traits of successful leadership...",
+    "title": "Qualities of an Effective Leader",
+    "ProfileId": 4,
+    "CategoryId": 7
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/b2/d3/d2/b2d3d2437636eb94485fd0116617df23.jpg",
+    "content": "As technology evolves, so do the tools available for enhancing productivity. Here are some of the latest apps and gadgets that can help streamline your workflow...",
+    "title": "Top Tech Tools to Boost Productivity",
+    "ProfileId": 3,
+    "CategoryId": 8
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/c4/a9/bd/c4a9bd656c1dcde8dd295d6d8d71a8ae.jpg",
+    "content": "Writing is more than just a skill—it’s an art form. Whether you’re drafting a novel or a blog post, these tips will help you refine your writing and connect with your audience...",
+    "title": "Tips for Effective and Engaging Writing",
+    "ProfileId": 3,
+    "CategoryId": 9
+  },
+  {
+    "imgURL": "https://i.pinimg.com/564x/90/6c/1a/906c1a406aadf4a6042ab243f69f152e.jpg",
+    "content": "Art has the power to move and inspire. Whether you’re an artist or an art lover, understanding the different styles can enhance your appreciation of this creative expression...",
+    "title": "Understanding Different Art Styles",
+    "ProfileId": 3,
+    "CategoryId": 10
   }
 ]

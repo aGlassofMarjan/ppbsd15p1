@@ -16,5 +16,23 @@
     "status": true,
     "gender": "female",
     "birthdate": "1990-02-02"
+  },
+  {
+    "fullName": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "password": "67890",
+    "isAdmin": false,
+    "status": true,
+    "gender": "female",
+    "birthdate": "1985-03-03"
+  },
+  {
+    "fullName": "Bob Brown",
+    "email": "bob.brown@example.com",
+    "password": "password123",
+    "isAdmin": false,
+    "status": true,
+    "gender": "male",
+    "birthdate": "1975-04-04"
   }
 ]

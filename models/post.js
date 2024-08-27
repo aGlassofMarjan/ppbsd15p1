@@ -72,8 +72,16 @@ module.exports = (sequelize, DataTypes) => {
       },
       ProfileId: DataTypes.INTEGER,
       CategoryId: {
-        // Add this line
+        allowNull: false,
         type: DataTypes.INTEGER,
+        validate: {
+          notNull: {
+            msg: "Category can't be empty",
+          },
+          notEmpty: {
+            msg: "Category must be filled",
+          },
+        },
         references: {
           model: "Categories",
           key: "id",

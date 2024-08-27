@@ -16,5 +16,23 @@
     "nickName": "Jane",
     "username": "janesmith",
     "UserId": 2
+  },
+  {
+    "gender": "female",
+    "birthdate": "1985-03-03",
+    "fullName": "Alice Johnson",
+    "profilePict": "https://i.pinimg.com/564x/4a/93/ae/4a93ae0e9fbf96e68a84b4fad16ef748.jpg",
+    "nickName": "Alice",
+    "username": "alicejohnson",
+    "UserId": 3
+  },
+  {
+    "gender": "male",
+    "birthdate": "1975-04-04",
+    "fullName": "Bob Brown",
+    "profilePict": "https://i.pinimg.com/564x/d1/dc/0b/d1dc0b6a6dd0bda94f96bfaa311d18aa.jpg",
+    "nickName": "Bob",
+    "username": "bobbrown",
+    "UserId": 4
   }
 ]

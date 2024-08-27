@@ -75,9 +75,9 @@
     
     <div class="w-full max-w-3xl mt-16 p-4 bg-white border border-gray-300 rounded-lg shadow-lg">
         <form id="postForm" action="/post/<%= profile.id %>" method="post">
-            <input type="text" name="title" placeholder="Title" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md">
+            <input type="text" name="title" placeholder="Title" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md" required>
             <input type="text" name="imgURL" placeholder="Image URL" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md">
-            <select name="categoryId" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md">
+            <select name="categoryId" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md" required>
                 <option value="" disabled selected>Select a category</option>
                 <option value="1">Family</option>
                 <option value="2">Business</option>
@@ -97,7 +97,7 @@
                 <option value="16">Travel</option>
             </select>
             <div id="editor" class="mb-4"></div>
-            <input type="hidden" name="content" id="editorContent">
+            <input type="hidden" name="content" id="editorContent" required>
             <input type="submit" value="Publish" class="publish px-4 py-2 rounded-full bg-green-700 text-white border border-green-700 hover:bg-green-800">
         </form>
     </div>
